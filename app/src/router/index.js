@@ -12,7 +12,12 @@ const router = createRouter({
       path: '/inbound',
       name: 'inbound',
       component: () => import('../views/InboundView.vue')
-    }
+    },
+    {
+      path: '/outbound',
+      name: 'outbound',
+      component: () => import('../views/OutboundView.vue')
+    },
   ]
 })
 

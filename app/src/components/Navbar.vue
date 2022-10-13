@@ -1,12 +1,12 @@
+
 <template>
   <header>
-    <nav class="bg-[#528D58] border-gray-200 px-2 sm:px-4 py-4 font-mono">
+    <nav class="bg-angelBaby-300 border-gray-200 px-2 sm:px-4 py-4 font-sans">
       <div class="container flex flex-wrap justify-between items-center mx-auto">
-        <RouterLink to="/" class="text-white text-2xl font-bold">Angle Baby</RouterLink>
-        <RouterLink to="/" class="text-white text-2xl font-bold">หน้าหลัก</RouterLink>
-        <RouterLink to="/" class="text-white text-2xl font-bold">นำของเข้า</RouterLink>
-        <RouterLink to="/" class="text-white text-2xl font-bold">นำของออก</RouterLink>
-        <RouterLink to="/" class="text-white text-2xl font-bold">ประวัติการนำเข้า-ออก</RouterLink>
+        <RouterLink to="/" class="text-white text-2xl font-bold border-red-600">Angle Baby</RouterLink>
+        <RouterLink to="/inbound" @click="toggle" class="text-white text-2xl font-bold focus:border-b-2 border-red-600"> นำของเข้า</RouterLink>
+        <RouterLink to="/outbound" class="text-white text-2xl font-bold focus:border-b-2 border-red-600">นำของออก</RouterLink>
+        <RouterLink to="/" class="text-white text-2xl font-bold focus:border-b-2 border-red-600">ประวัติการนำเข้า-ออก</RouterLink>
         
         
 
@@ -32,7 +32,11 @@
 
 <script>
 export default {
-  name: "Navbar"
+  data() {
+    return {
+      isOpen: false,
+    }
+  },
 }
 </script>
 
