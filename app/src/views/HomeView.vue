@@ -1,13 +1,15 @@
 <template >
   <div class="p-5 pt-4 flex flex-wrap justify-between">
-    <h1>Item List</h1>
-
+    <div>
+      <h1>Item List</h1>
+    </div>
+    
     <div class="">
           <div class="bg-white rounded-xl">
-            <a class="container flex flex-wrap justify-between items-center">
+            <a class="container flex flex-wrap ">
               <div class="ml-auto pr-9">
                 <select class="ml-3 rounded-lg bg-transparent border-transparent">
-                  <option disabled value="">ประเภท Iten </option>
+                  <option disabled value="">ประเภท Item </option>
                   <option value="profile">ID</option>
                   <option value="setting">Name</option>
                   <option value="logOut">Quantity</option>
@@ -17,7 +19,7 @@
           </div>
     </div>
 
-    <form class="w-2/4 m-1">
+      <form class="w-1/4 m-1">
         <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
         <div class="relative">
           <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
@@ -42,32 +44,31 @@
       </form>
   </div>
 
-  <div class="container-fluid">
-    <div class="p-5 pt-4 flex flex-wrap justify-between">
-      <table class="table">
-        <thead>
-          <tr class="border-t">
-            <th scope="col">ID</th>
-            <th scope="col">Item Name</th>
-            <th scope="col">InBoud-Date</th>
-            <th scope="col">Outbound-date</th>
-            <th scope="col">Expire-date</th>
-            <th scope="col">Quantity</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="border-t">
-            <th scope="row">AOW001</th>
-            <td class="py-3 px-6">Aungpor</td>
-            <td class="py-3 px-6">13-10-2565</td>
-            <td class="py-3 px-6">NULL</td>
-            <td class="py-3 px-6">NULL</td>
-            <td class="py-3 px-6">NULL</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+  <div class=" p-5 pt-4 flex flex-wrap justify-center">
+    <table class="table">
+      <thead>
+        <tr class="border-t">
+          <th scope="col">ID</th>
+          <th scope="col">Item Name</th>
+          <th scope="col">InBoud-Date</th>
+          <th scope="col">Outbound-date</th>
+          <th scope="col">Expire-date</th>
+          <th scope="col">Quantity</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border-t">
+          <th scope="row">AOW001</th>
+          <td class="py-3 px-6">Aungpor</td>
+          <td class="py-3 px-6">13-10-2565</td>
+          <td class="py-3 px-6">NULL</td>
+          <td class="py-3 px-6">NULL</td>
+          <td class="py-3 px-6">NULL</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
+
   
 
 </template>
