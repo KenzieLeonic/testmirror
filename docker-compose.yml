@@ -11,3 +11,5 @@ services:
     volumes:
       - ./:/var/www/html
     tty: true
+
+  

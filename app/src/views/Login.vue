@@ -23,7 +23,9 @@
           <input class="pl-2 outline-none border-none" type="text" v-model="password" placeholder="Password" required/>
         </div>
         <span class="text-sm ml-auto mt-1.5 text-blue-500 hover:border-b-2 border-blue-500 cursor-pointer">Forgot Password ?</span>
-        <button type="submit" :disabled="disabledButton" class="block w-full bg-angelBaby-300 mt-4 py-2 rounded-xl text-white font-semibold mb-2" :class="disabledButton ? 'bg-gray-400 ': 'bg-angelBaby-300'">Login</button>
+        <button type="submit" :disabled="disabledButton" class="block w-full bg-angelBaby-300 mt-4 py-2 rounded-xl text-white font-semibold mb-2" :class="disabledButton ? 'bg-gray-400 ': 'bg-angelBaby-300'">
+          <RouterLink to="/">Login</RouterLink>
+        </button>
       </form>
     </div>
   </div>
