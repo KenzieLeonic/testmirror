@@ -17,8 +17,6 @@
               <div class="ml-auto pr-9">
                 <select v-model="selected" class="ml-3 rounded-lg bg-transparent border-transparent">
                   <option disabled value="">ชื่อ user</option>
-                  <option value="profile">โปรไฟล์</option>
-                  <option value="setting">การตั้งค่า</option>
                   <option value="logOut">ออกจากระบบ</option>
                 </select>
               </div>

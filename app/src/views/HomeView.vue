@@ -1,25 +1,25 @@
 <template >
   <div class="p-5 pt-4 flex flex-wrap justify-between">
     <div>
-      <h1>Item List</h1>
-    </div>
-    
-    <div class="">
-          <div class="bg-white rounded-xl">
-            <a class="container flex flex-wrap ">
-              <div class="ml-auto pr-9">
-                <select class="ml-3 rounded-lg bg-transparent border-transparent">
-                  <option disabled value="">ประเภท Item </option>
-                  <option value="profile">ID</option>
-                  <option value="setting">Name</option>
-                  <option value="logOut">Quantity</option>
-                </select>
-              </div>
-            </a>
-          </div>
+      <h1 class="pl-8 pt-6 text-xl">Home</h1>
     </div>
 
+    <div class="ml-6 my-4 pt-6 text-xl inline-block ">
+      <div class="bg-white rounded-xl">
+        <a class="container flex flex-wrap ">
+          <div class="ml-auto pr-9">
+            <select class="ml-3 rounded-lg bg-transparent border-transparent border-2 border-angelBaby-300">
+              <option disabled value="">ประเภท Item </option>
+              <option value="profile">ID</option>
+              <option value="setting">Name</option>
+              <option value="logOut">Quantity</option>
+            </select>
+          </div>
+        </a>
+      </div>
+    </div>
       <form class="w-1/4 m-1">
+
         <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
         <div class="relative">
           <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
@@ -42,36 +42,64 @@
           </button>
         </div>
       </form>
-  </div>
+    </div>
 
-  <div class=" p-5 pt-4 flex flex-wrap justify-center">
-    <table class="table">
-      <thead>
+  <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
+    <table class="w-full text-sm text-left text-gray-800 dark:text-gray-400">
+      <thead class="text-xs text-gray-700 uppercase dark:text-gray-400">
         <tr class="border-t">
-          <th scope="col">ID</th>
-          <th scope="col">Item Name</th>
-          <th scope="col">InBoud-Date</th>
-          <th scope="col">Outbound-date</th>
-          <th scope="col">Expire-date</th>
-          <th scope="col">Quantity</th>
+          <th scope="col" class="py-3 px-6 bg-gray-50 dark:bg-gray-800">ID</th>
+          <th scope="col" class="py-3 px-6">Item Name</th>
+          <th scope="col" class="py-3 px-6 bg-gray-50 dark:bg-gray-800">Inbound-Date</th>
+          <th scope="col" class="py-3 px-6">Outbound-date</th>
+          <th scope="col" class="py-3 px-6 bg-gray-50 dark:bg-gray-800">Expire-date</th>
+          <th scope="col" class="py-3 px-6">Quantity</th>
         </tr>
       </thead>
       <tbody>
-        <tr class="border-t">
-          <th scope="row">AOW001</th>
-          <td class="py-3 px-6">Aungpor</td>
-          <td class="py-3 px-6">13-10-2565</td>
-          <td class="py-3 px-6">NULL</td>
-          <td class="py-3 px-6">NULL</td>
-          <td class="py-3 px-6">NULL</td>
-        </tr>
+
+      <tr v-for="product in products" :key="product.id">
+       <td class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
+          {{product.id}}
+        </td>
+        <td class="py-4 px-6">
+          {{product.name}}
+        </td>
+        <td class="py-4 px-6 bg-gray-50 dark:bg-gray-800">{{product.inboundsDate}}</td>
+        <td class="py-4 px-6">{{product.outboundDate}}</td>
+        <td class="py-4 px-6 bg-gray-50 dark:bg-gray-800">{{product.expireDate}}</td>
+        <td class="py-4 px-6">{{product.quantity}}</td>
+      </tr>
       </tbody>
     </table>
   </div>
-
-  
-
 </template>
+
+<script>
+import ShowInbound from "../components/ShowInbound.vue"
+import {useItemStores} from ""
+export default {
+  setup(){
+
+  },
+  data() {
+    return {
+      products: [
+        {id: 'AOW001',name:'Aungpor',inboundsDate:'13-10-2565',outboundDate:'null',expireDate:'null',quantity:'null'},
+        {id: 'AOW002',name:'Icecream',inboundsDate:'14-10-2565',outboundDate:'28-10-2022',expireDate:'25-10-2023',quantity:'4'},
+        {id: 'AOW003',name:'Chocolate',inboundsDate:'14-10-2565',outboundDate:'28-10-2022',expireDate:'25-10-2023',quantity:'3'},
+      ],
+    }
+  },
+  props: {
+    value: {
+      type: [String,String,Date,Date,Date,Number],
+      required:false,
+      default: null
+    },
+  },
+}
+</script>
 
 <style scoped>
 
