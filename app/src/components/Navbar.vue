@@ -9,7 +9,6 @@
         <RouterLink to="/" class="text-white text-2xl font-bold focus:border-b-2 border-red-600">ประวัติการนำเข้า-ออก</RouterLink>
         <RouterLink to="/login" class="text-white text-2xl font-bold focus:border-b-2 border-red-600">เข้าสู่ระบบ</RouterLink>
         
-        
 
         <div class="justify-between items-center w-full md:flex md:w-auto md:order-1 flex">
           <div class="bg-white rounded-xl">
@@ -18,8 +17,6 @@
               <div class="ml-auto pr-9">
                 <select v-model="selected" class="ml-3 rounded-lg bg-transparent border-transparent">
                   <option disabled value="">ชื่อ user</option>
-                  <option value="profile">โปรไฟล์</option>
-                  <option value="setting">การตั้งค่า</option>
                   <option value="logOut">ออกจากระบบ</option>
                 </select>
               </div>

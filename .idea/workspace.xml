@@ -5,9 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dde3736e-cb9c-46ee-8852-3e7625fd2024" name="Changes" comment="update git ignore">
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/data-warehouse-front.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/assets/ruchindra-gunasekara-GK8x_XCcDZg-unsplash.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/components/products/ProductTable.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/components/profile/Profile.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/stores/auth.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/stores/product.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/stores/reward.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/app/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/components/BackButton.vue" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/components/BackButton.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/components/Navbar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/components/Navbar.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/components/ShowInbound.vue" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/components/ShowInbound.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/router/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/services/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/services/api.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/views/HomeView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/views/HomeView.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/views/InboundView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/views/InboundView.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/tailwind.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/tailwind.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,7 +91,7 @@
       <workItem from="1665986690580" duration="9037000" />
       <workItem from="1666010247476" duration="360000" />
       <workItem from="1666251340029" duration="4719000" />
-      <workItem from="1666422670559" duration="8497000" />
+      <workItem from="1666422670559" duration="9995000" />
     </task>
     <task id="LOCAL-00001" summary="add route and custom color at tailwind.config.js">
       <created>1665671063987</created>

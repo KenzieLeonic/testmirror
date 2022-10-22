@@ -33,6 +33,10 @@
 </template>
 
 <script>
+<<<<<<< HEAD:app/src/components/ShowInbound.vue
+export default {
+  name: "ShowInbound"
+=======
 import { useAuthStore } from "@/stores/auth.js"
 export default {
   setup() {
@@ -64,6 +68,7 @@ export default {
       }
     }
   },
+>>>>>>> helpme:app/src/views/Login.vue
 }
 </script>
 

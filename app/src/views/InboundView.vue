@@ -8,11 +8,10 @@
   </body>
   </template>
 <script>
-
+export default {
+  //
+}
 </script>
 
 <style scoped>
-body{
-  background-color: #E8F0FF;
-}
 </style>
