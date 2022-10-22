@@ -50,7 +50,7 @@
         <tr class="border-t">
           <th scope="col">ID</th>
           <th scope="col">Item Name</th>
-          <th scope="col">InBoud-Date</th>
+          <th scope="col">Inbound-Date</th>
           <th scope="col">Outbound-date</th>
           <th scope="col">Expire-date</th>
           <th scope="col">Quantity</th>
