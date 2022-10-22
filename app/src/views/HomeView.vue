@@ -1,6 +1,7 @@
 <template >
   <div class="p-5 pt-4 flex flex-wrap justify-between">
     <div>
+
       <h1 class="pl-8 pt-6 text-xl">Home</h1>
     </div>
 
@@ -47,57 +48,72 @@
   <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
     <table class="w-full text-sm text-left text-gray-800 dark:text-gray-400">
       <thead class="text-xs text-gray-700 uppercase dark:text-gray-400">
-        <tr class="border-t">
-          <th scope="col" class="py-3 px-6 bg-gray-50 dark:bg-gray-800">ID</th>
-          <th scope="col" class="py-3 px-6">Item Name</th>
-          <th scope="col" class="py-3 px-6 bg-gray-50 dark:bg-gray-800">Inbound-Date</th>
-          <th scope="col" class="py-3 px-6">Outbound-date</th>
-          <th scope="col" class="py-3 px-6 bg-gray-50 dark:bg-gray-800">Expire-date</th>
-          <th scope="col" class="py-3 px-6">Quantity</th>
-        </tr>
-      </thead>
-      <tbody>
-
-      <tr v-for="product in products" :key="product.id">
-       <td class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-          {{product.id}}
-        </td>
-        <td class="py-4 px-6">
-          {{product.name}}
-        </td>
-        <td class="py-4 px-6 bg-gray-50 dark:bg-gray-800">{{product.inboundsDate}}</td>
-        <td class="py-4 px-6">{{product.outboundDate}}</td>
-        <td class="py-4 px-6 bg-gray-50 dark:bg-gray-800">{{product.expireDate}}</td>
-        <td class="py-4 px-6">{{product.quantity}}</td>
+      <tr class="border-t">
+        <th scope="col" class="py-3 px-6 bg-gray-50 dark:bg-gray-800">Item-ID</th>
+        <th scope="col" class="py-3 px-6">Item Name</th>
+        <th scope="col" class="py-3 px-6 bg-gray-50 dark:bg-gray-800">Inbound-Date</th>
+        <th scope="col" class="py-3 px-6">Outbound-Date</th>
+        <th scope="col" class="py-3 px-6 bg-gray-50 dark:bg-gray-800">Expire-Date</th>
+        <th scope="col" class="py-3 px-6">Quantity</th>
       </tr>
+      </thead>
+      <tbody v-for="product in products" :key="product.id">
+        <tr class="border-t">
+          <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">{{ product.id }}</th>
+          <td class="py-3 px-6 bg-white">{{ product.name }}</td>
+          <td class="py-3 px-6 bg-gray-50 dark:bg-gray-800">13-10-2565</td>
+          <td class="py-3 px-6 bg-white">NULL</td>
+          <td class="py-3 px-6 bg-gray-50 dark:bg-gray-800">NULL</td>
+          <td class="py-3 px-6 bg-white">NULL</td>
+        </tr>
       </tbody>
     </table>
   </div>
 </template>
 
 <script>
-import ShowInbound from "../components/ShowInbound.vue"
-import {useItemStores} from ""
-export default {
-  setup(){
+import { useProductStore } from '@/stores/product.js'
 
+export default {
+  setup() {
+    const product_store = useProductStore()
+    return { product_store }
   },
+  
   data() {
     return {
-      products: [
-        {id: 'AOW001',name:'Aungpor',inboundsDate:'13-10-2565',outboundDate:'null',expireDate:'null',quantity:'null'},
-        {id: 'AOW002',name:'Icecream',inboundsDate:'14-10-2565',outboundDate:'28-10-2022',expireDate:'25-10-2023',quantity:'4'},
-        {id: 'AOW003',name:'Chocolate',inboundsDate:'14-10-2565',outboundDate:'28-10-2022',expireDate:'25-10-2023',quantity:'3'},
-      ],
+      title: "Product List",
+      selected: null,
+      products: null,
+      error: null
     }
   },
-  props: {
-    value: {
-      type: [String,String,Date,Date,Date,Number],
-      required:false,
-      default: null
+  watch: {},
+  methods: {
+    async refreshProducts(data) {
+      if (data.refresh) {
+        await this.product_store.fetch()
+        this.products = this.product_store.getProducts
+      }
     },
+    selectProduct(product) {
+      this.$router.push({
+        name: 'products.show', 
+        params: { id: product.id }
+      })
+    }
   },
+  async mounted() {
+    console.log("mounted")
+    this.error = null
+
+    try {
+      await this.product_store.fetch()
+      this.products = this.product_store.getProducts
+    } catch (error) {
+      this.error = error.message
+    }
+  }
 }
 </script>
 

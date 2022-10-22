@@ -14,11 +14,27 @@ const router = createRouter({
       component: () => import('../views/InboundView.vue')
     },
     {
-      path: '/login',
-      name: 'login',
-      component: () => import('../views/LoginView.vue')
-    }
+      path: '/outbound',
+      name: 'outbound',
+      component: () => import('../views/OutboundView.vue')
+    },
+    {
+      path:'/login',
+      name:'login',
+      component: () =>  import('../views/LoginView.vue')
+    },
   ]
-})
+});
+
+// router.beforeEach(async (to) =>{
+//   const publicPages = ['/login'];
+//   const authRequired = !publicPages.includes(to.path);
+//   const auth = useAuthStore();
+
+//   if (authRequired && !auth.user){
+//     auth.returnUrl = to.fullPath;
+//     return '/login';
+//   }
+// });
 
 export default router

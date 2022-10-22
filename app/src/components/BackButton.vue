@@ -1,9 +1,10 @@
 <template>
 <div class="absolute top-0 left-0">
   <button @click="goBack">
-  <img src="../src/assets/return.png">
+  <img src="/assets/return.png">
   </button>
 </div>
+
 </template>
 
 <script>
