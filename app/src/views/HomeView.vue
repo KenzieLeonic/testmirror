@@ -59,7 +59,7 @@
       <tbody v-for="product in products">
         <tr class="border-t">
           <th scope="row">{{ product.id }}</th>
-          <td class="py-3 px-6">{{ product.id }}</td>
+          <td class="py-3 px-6">{{ product.name }}</td>
           <td class="py-3 px-6">13-10-2565</td>
           <td class="py-3 px-6">NULL</td>
           <td class="py-3 px-6">NULL</td>
