@@ -1,5 +1,5 @@
 <template>
-  <div class="border-2 mx-10 p-3 my-20 w-90 h-80 bg-angelBaby-200 grid grid-rows-6 grid-flow-col gap-6">
+  <div class="w-1/3 border-2 mx-10 p-3 my-20 h-80 bg-angelBaby-200 grid grid-rows-6 grid-flow-col gap-6 right-2">
 <!--    header-->
     <h3 class="float-left text-xl text-gray-50">
       Stock ID

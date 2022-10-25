@@ -1,6 +1,6 @@
 <template>
-  <div class="md:items-center content-center rounded-lg">
-    <table class="w-full rounded-xl text-sm text-left text-gray-500 dark:text-gray-400 table-auto ml-10">
+  <div class="rounded-lg overflow-y-auto h-full relative">
+    <table class="w-2/3 rounded-xl text-sm text-left text-gray-500 dark:text-gray-400 table-auto ml-10 ">
       <thead class="text-lg text-gray-700 uppercase bg-gray-50">
       <tr>
         <th scope="col" class="py-3 px-6">
@@ -16,15 +16,26 @@
       </thead>
       <tbody>
       <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-        <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+        <th scope="row" class="py-4 px-10 font-medium text-gray-900 whitespace-nowrap dark:text-white">
           Apple MacBook Pro 17"
         </th>
-        <td class="py-4 px-6">
+        <td class="py-4 px-10">
           Sliver
         </td>
-        <td class="py-4 px-6">
+        <td class="py-4 px-10">
           Laptop
         </td>
+      <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+        <th scope="row" class="py-4 px-10 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+          Apple MacBook Pro 17"
+        </th>
+        <td class="py-4 px-10">
+          Sliver
+        </td>
+        <td class="py-4 px-10">
+          Laptop
+        </td>
+        </tr>
       </tr>
       </tbody>
     </table>
