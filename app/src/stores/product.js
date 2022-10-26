@@ -5,11 +5,18 @@ export const useProductStore = defineStore({
     id: 'product',
     state: () => {
       return {
-        products: []
+        products: [],
       }
     },
     getters: {
       getProducts: (state) => state.products,
+  
+      getProductById: (state) => (itemID) => {
+        return state.products.find(product => product.itemID === itemID)
+      },
+      getProductByName: (state) => (name) => {
+        return state.products.find(product => product.name === name)
+      },
     },
     actions: {
         async fetch () {
