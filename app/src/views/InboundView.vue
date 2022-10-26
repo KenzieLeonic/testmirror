@@ -1,14 +1,3 @@
-<script>
-import InboundOutboundTable from "../components/InboundOutboundTable.vue"
-import InboundOutboundDetail from "../components/InboundOutboundDetail.vue"
-export default {
-  components: {
-    InboundOutboundDetail,
-    InboundOutboundTable
-  }
-}
-</script>
-
 <template>
   <div class="min-h-screen bg-angelBaby-100">
     <div class="font-mono mx-auto max-w-7xl text-gray-700">
@@ -33,11 +22,23 @@ export default {
       </div>
         <div style="display: flex; justify-content: space-around">
           <InboundOutboundTable />
-          <InboundOutboundDetail />
+          <InboundOutboundDetail></InboundOutboundDetail>
       </div>
     </div>
   </div>
 </template>
+
+<script>
+import InboundOutboundTable from "../components/InboundOutboundTable.vue"
+import InboundOutboundDetail from "../components/InboundOutboundDetail.vue"
+export default {
+  components: {
+    InboundOutboundDetail,
+    InboundOutboundTable
+  }
+
+}
+</script>
 
 <style scoped>
 body{

@@ -43,7 +43,9 @@
 
 <script>
 export default {
-  name: "InboundOutboundDetail"
+  props: {
+    Item: Object
+  },
 }
 </script>
 
