@@ -6,9 +6,16 @@
   <component name="ChangeListManager">
     <list default="true" id="dde3736e-cb9c-46ee-8852-3e7625fd2024" name="Changes" comment="update git ignore">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/app/src/components/InboundOutboundDetail.vue" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/components/InboundOutboundDetail.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/components/InboundOutboundTable.vue" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/components/InboundOutboundTable.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/views/InboundView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/views/InboundView.vue" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/app/src/components/ShowInbound.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/components/products/ProductTable.vue" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/components/products/ProductTable.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/views/InboundView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/views/InboundView.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/views/LoginView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/views/LoginView.vue" afterDir="false" />
+>>>>>>> views
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,7 +37,10 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2FzYgyyZLEQXYoxgwQgrtCkUVvZ" />
+<<<<<<< HEAD
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+=======
+>>>>>>> views
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -79,8 +89,12 @@
       <workItem from="1666422670559" duration="11116000" />
       <workItem from="1666439016167" duration="1624000" />
       <workItem from="1666452264730" duration="204000" />
+<<<<<<< HEAD
       <workItem from="1666494366451" duration="9653000" />
       <workItem from="1666699933024" duration="2555000" />
+=======
+      <workItem from="1666494366451" duration="592000" />
+>>>>>>> views
     </task>
     <task id="LOCAL-00001" summary="add route and custom color at tailwind.config.js">
       <created>1665671063987</created>

@@ -18,9 +18,11 @@ coverage
 /cypress/screenshots/
 
 # Editor directories and files
+.idea/**
 .vscode/*
 !.vscode/extensions.json
 .idea
+.idea/workspace.xml
 *.suo
 *.ntvs*
 *.njsproj

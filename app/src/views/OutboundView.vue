@@ -12,12 +12,12 @@ export default {
 <template>
   <div class="min-h-screen bg-angelBaby-100">
     <div class="font-mono mx-auto max-w-7xl text-gray-700">
-      <h1 class="pl-8 pt-6 text-xl">Inbound</h1>
+      <h1 class="pl-8 pt-6 text-xl">Outbound</h1>
       <div class="flex items-center pb-4">
         <label for="type" class="p-8 pt-6 text-xl mr-5">Select Item:</label>
         <select name="type" id="type" class="bg-gray-100 uppercase rounded-lg w-18">type
-        <option value = "ID">ID</option>
-        <option value = "name">Name</option>
+          <option value = "ID">ID</option>
+          <option value = "name">Name</option>
         </select>
         <label for="table-search" class="mx-10"></label>
         <div class="relative">
@@ -31,9 +31,9 @@ export default {
           <span class="sr-only">Search</span>
         </button>
       </div>
-        <div style="display: flex; justify-content: space-around">
-          <InboundOutboundTable />
-          <InboundOutboundDetail />
+      <div style="display: flex; justify-content: space-around">
+        <InboundOutboundTable />
+        <InboundOutboundDetail />
       </div>
     </div>
   </div>
