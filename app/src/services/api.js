@@ -64,3 +64,60 @@ export const productAPI = {
     }
   }
 }
+
+export const stockAPI = {
+  async getAll () {
+    const response = await axiosInstance.get('/stock')
+    if (response.status == 200) {
+      return response.data
+    }
+    return []
+  },
+  async saveNew (stock) {
+    const response = await axiosInstance.post('/stock', stock)
+    if (response.status == 201) {
+      return response.data
+    }
+    return {
+      success: false
+    }
+  }
+}
+
+export const logAPI = {
+  async getAll () {
+    const response = await axiosInstance.get('/log')
+    if (response.status == 200) {
+      return response.data
+    }
+    return []
+  },
+  async saveNew (log) {
+    const response = await axiosInstance.post('/log', log)
+    if (response.status == 201) {
+      return response.data
+    }
+    return {
+      success: false
+    }
+  }
+}
+
+export const locationAPI = {
+  async getAll () {
+    const response = await axiosInstance.get('/location')
+    if (response.status == 200) {
+      return response.data
+    }
+    return []
+  },
+  async saveNew (location) {
+    const response = await axiosInstance.post('/location', location)
+    if (response.status == 201) {
+      return response.data
+    }
+    return {
+      success: false
+    }
+  }
+}

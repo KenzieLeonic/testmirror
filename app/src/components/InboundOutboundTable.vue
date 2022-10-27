@@ -17,25 +17,14 @@
       <tbody>
       <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
         <th scope="row" class="py-4 px-10 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-          Apple MacBook Pro 17"
+          {{ stock.itemID }}
         </th>
         <td class="py-4 px-10">
-          Sliver
+          {{ stock.name }}
         </td>
         <td class="py-4 px-10">
-          Laptop
+          {{ stock.description }}
         </td>
-      <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-        <th scope="row" class="py-4 px-10 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-          Apple MacBook Pro 17"
-        </th>
-        <td class="py-4 px-10">
-          Sliver
-        </td>
-        <td class="py-4 px-10">
-          Laptop
-        </td>
-        </tr>
       </tr>
       </tbody>
     </table>
@@ -44,7 +33,20 @@
 
 <script>
 export default {
-  name: "InboundOutboundTable"
+  props: {
+    stock: Object,
+    url: {
+      type: String,
+      default: ''
+    }
+  },
+  methods: {
+    onClickButton() {
+      if (this.url != '') {
+        this.$router.push(this.url)
+      }
+    }
+  }
 }
 </script>
 

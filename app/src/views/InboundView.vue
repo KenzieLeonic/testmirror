@@ -21,20 +21,120 @@
         </button>
       </div>
         <div style="display: flex; justify-content: space-around">
-          <InboundOutboundTable />
-          <InboundOutboundDetail></InboundOutboundDetail>
-      </div>
+
+          <div class="rounded-lg overflow-y-auto h-full relative">
+            <table class="w-2/3 rounded-xl text-sm text-left text-gray-500 dark:text-gray-400 table-auto ml-10 ">
+              <thead class="text-lg text-gray-700 uppercase bg-gray-50">
+                <tr>
+                  <th scope="col" class="py-3 px-6">
+                    ItemID
+                  </th>
+                  <th scope="col" class="py-3 px-6">
+                    Item Name
+                  </th>
+                  <th scope="col" class="py-3 px-6">
+                    Description
+                  </th>
+                </tr>
+              </thead>
+              <tbody v-for="stock in stocks" :key="stock.stockID">
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                  <th scope="row" class="py-4 px-10 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    {{ stock.itemID }}
+                  </th>
+                  <td class="py-4 px-10">
+                    {{ stock.name }}
+                  </td>
+                  <td class="py-4 px-10">
+                    {{ stock.description }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="w-1/3 border-2 mx-10 p-3 my-20 h-80 bg-angelBaby-200 grid grid-rows-6 grid-flow-col gap-6 right-2">
+            <h3 class="float-left text-xl text-gray-50">
+              Stock ID
+            </h3>
+            <h3 class="float-left text-xl text-gray-50">
+              Item ID
+            </h3>
+            <h3 class="float-left text-xl text-gray-50">
+              Item Name
+            </h3>
+            <h3 class="float-left text-xl text-gray-50">
+              Description
+            </h3>
+            <h3 class="float-left text-xl text-gray-50">
+              Expire-Date
+            </h3>
+            <h3 class="float-left text-xl text-gray-50">
+              Quantity
+            </h3>
+          </div>
+
+        </div>
     </div>
+
+    <div>Hello World</div>
+    <div v-for="stock in stocks" :key="stock.stockID">
+        {{ stock }}
+      </div>
   </div>
 </template>
 
 <script>
 import InboundOutboundTable from "../components/InboundOutboundTable.vue"
 import InboundOutboundDetail from "../components/InboundOutboundDetail.vue"
+import { useStockStore } from '@/stores/stock.js'
 export default {
+  setup() {
+    const stock_store = useStockStore()
+    return { stock_store }
+  },
+  
+  data() {
+    return {
+      title: "Stock List",
+      selected: null,
+      stocks: null,
+      error: null,
+      sortOption: 'default'
+    }
+  },
+  watch: {},
   components: {
     InboundOutboundDetail,
     InboundOutboundTable
+  },
+  methods: {
+    async refreshStocks(data) {
+      if (data.refresh) {
+        await this.stock_store.fetch()
+        this.stocks = this.stock_store.getStocks
+      }
+    },
+    searchProduct(){
+        if(this.selected == "ID"){
+          this.stocks = this.stock_store.getProductById(this.search)
+        }
+        if(this.selected == "Name"){
+          this.stocks = this.stock_store.getProductByName(this.search)
+        }
+        
+      },
+  },
+  async mounted() {
+    console.log("mounted")
+    this.error = null
+
+    try {
+      await this.stock_store.fetch()
+      this.stocks = this.stock_store.getStocks
+    } catch (error) {
+      this.error = error.message
+    }
   }
 
 }
