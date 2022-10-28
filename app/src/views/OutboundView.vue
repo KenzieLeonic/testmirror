@@ -73,19 +73,17 @@
               Quantity
             </h3>
           </div>
-
         </div>
     </div>
 
-    <div>Hello World</div>
-    <div v-for="stock in stocks" :key="stock.stockID">
-        {{ stock }}
-      </div>
+<!--    <div>Hello World</div>-->
+<!--    <div v-for="stock in stocks" :key="stock.stockID">-->
+<!--        {{ stock }}-->
+<!--      </div>-->
   </div>
 </template>
 
 <script>
-import InboundOutboundTable from "../components/InboundOutboundTable.vue"
 import InboundOutboundDetail from "../components/InboundOutboundDetail.vue"
 import { useStockStore } from '@/stores/stock.js'
 export default {
@@ -106,7 +104,6 @@ export default {
   watch: {},
   components: {
     InboundOutboundDetail,
-    InboundOutboundTable
   },
   methods: {
     async refreshStocks(data) {
@@ -136,7 +133,6 @@ export default {
       this.error = error.message
     }
   }
-
 }
 </script>
 
