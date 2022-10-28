@@ -19,11 +19,6 @@ const router = createRouter({
       component: () => import('../views/OutboundView.vue')
     },
     {
-      path: '/outbound',
-      name: 'outbound',
-      component: () => import('../views/OutboundView.vue')
-    },
-    {
       path:'/login',
       name:'login',
       component: () =>  import('../views/LoginView.vue')

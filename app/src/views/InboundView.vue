@@ -37,50 +37,72 @@
                   </th>
                 </tr>
               </thead>
-              <tbody v-for="stock in stocks" :key="stock.stockID">
+              <tbody v-for="stock in stocks" v-bind:key="stock.stockID">
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                   <th scope="row" class="py-4 px-10 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {{ stock.itemID }}
+                    <a href="#" @click="stockDetail(stock)">{{ stock.item.itemID }}</a>
+                    
                   </th>
                   <td class="py-4 px-10">
-                    {{ stock.name }}
+                    {{ stock.item.name }}
                   </td>
                   <td class="py-4 px-10">
-                    {{ stock.description }}
+                    {{ stock.item.description }}
                   </td>
                 </tr>
               </tbody>
             </table>
           </div>
 
-          <div class="w-1/3 border-2 mx-10 p-3 my-20 h-80 bg-angelBaby-200 grid grid-rows-6 grid-flow-col gap-6 right-2">
+          <div v-if="selected != null" class="w-1/3 border-2 mx-10 p-3 my-20 h-80 bg-angelBaby-200 grid grid-rows-6 grid-flow-col gap-6 right-2">
             <h3 class="float-left text-xl text-gray-50">
-              Stock ID
+              Stock ID: {{selected.stockID}}
             </h3>
             <h3 class="float-left text-xl text-gray-50">
-              Item ID
+              Item ID : {{selected.item.itemID}}
             </h3>
             <h3 class="float-left text-xl text-gray-50">
-              Item Name
+              Item Name: {{selected.item.name}}
             </h3>
             <h3 class="float-left text-xl text-gray-50">
-              Description
+              Description: {{selected.item.description}}
             </h3>
             <h3 class="float-left text-xl text-gray-50">
-              Expire-Date
+              Expire-Date: {{selected.expire}}
             </h3>
             <h3 class="float-left text-xl text-gray-50">
-              Quantity
+              Quantity: {{selected.quantity}}
+            </h3>
+          </div>
+
+          <div v-else class="w-1/3 border-2 mx-10 p-3 my-20 h-80 bg-angelBaby-200 grid grid-rows-6 grid-flow-col gap-6 right-2">
+            <h3 class="float-left text-xl text-gray-50">
+              Stock ID:
+            </h3>
+            <h3 class="float-left text-xl text-gray-50">
+              Item ID: 
+            </h3>
+            <h3 class="float-left text-xl text-gray-50">
+              Item Name: 
+            </h3>
+            <h3 class="float-left text-xl text-gray-50">
+              Description: 
+            </h3>
+            <h3 class="float-left text-xl text-gray-50">
+              Expire-Date: 
+            </h3>
+            <h3 class="float-left text-xl text-gray-50">
+              Quantity  :
             </h3>
           </div>
 
         </div>
     </div>
 
-    <div>Hello World</div>
-    <div v-for="stock in stocks" :key="stock.stockID">
+    <!-- <div>Hello World</div>
+    <div v-for="stock in selected" v-bind:key="stock.stockID">
         {{ stock }}
-      </div>
+    </div> -->
   </div>
 </template>
 
@@ -122,8 +144,10 @@ export default {
         if(this.selected == "Name"){
           this.stocks = this.stock_store.getProductByName(this.search)
         }
-        
-      },
+    },
+    stockDetail(stock){
+      this.selected = stock
+    }
   },
   async mounted() {
     console.log("mounted")
