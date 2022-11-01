@@ -51,14 +51,14 @@
             <tbody v-for="log in logs" v-bind:key="log.logID">
               <tr v-if="log.type == 'inbound'"
                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <th scope="row" class="py-4 px-10 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  <a href="#" @click="logDetail(log)">{{ log.stock.item.itemID }}</a>
+                <th @click="logDetail(log)" scope="row" class="py-4 px-10 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  {{ log.stock.item.itemID }}
 
                 </th>
-                <td class="py-4 px-10">
+                <td @click="logDetail(log)" class="py-4 px-10">
                   {{ log.stock.item.name }}
                 </td>
-                <td class="py-4 px-10">
+                <td @click="logDetail(log)" class="py-4 px-10">
                   {{ log.stock.item.description }}
                 </td>
               </tr>

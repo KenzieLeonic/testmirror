@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const accessToken = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ing2ejZ0SnRDM1NxUXFadlhZNElVcCJ9.eyJpc3MiOiJodHRwczovL3JlaW5hLmpwLmF1dGgwLmNvbS8iLCJzdWIiOiJqYzI0U2pxc3k1VVpOZlhlZFRqRnY3YVdHMTdRT3lTRkBjbGllbnRzIiwiYXVkIjoiaHR0cHM6Ly9hbmdlbC1iYWJ5LWRiL2FwaSIsImlhdCI6MTY2Njk1NDY3MCwiZXhwIjoxNjY3MDQxMDcwLCJhenAiOiJqYzI0U2pxc3k1VVpOZlhlZFRqRnY3YVdHMTdRT3lTRiIsImd0eSI6ImNsaWVudC1jcmVkZW50aWFscyJ9.gjgKAhQKSjI6nPvLGUCE5eAZ5DF_zU1V_Mddg0f7_n-srfFaOTNbb-GiInBJRwysbjgMnU9xpkWEyTzxBP0za9n0-Q5c0Trb_oBsZEMBvhsIkkgVrHHmJnz6outdNhT2CSC88wjMlVqoA6RJ8zr3Kqye-3bGI8fr3zlZEld1gAY9E5M12QiIRejDIRrYC_qQeCioXgSr_P7cEhCPS1XjjdogQ_SVRJ8C1dTH5v0SyZrNhjgM5NzwjQM2JXqfrD5WIOCSXvUgk42PNt2w7a7kMU0BfQwBhb0AdlOudV4RAYJPjC_yovtv0GXPklBiNYKBVNDaZV4rcTjxyEv4jaEi5A';
+const accessToken = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ing2ejZ0SnRDM1NxUXFadlhZNElVcCJ9.eyJpc3MiOiJodHRwczovL3JlaW5hLmpwLmF1dGgwLmNvbS8iLCJzdWIiOiJqYzI0U2pxc3k1VVpOZlhlZFRqRnY3YVdHMTdRT3lTRkBjbGllbnRzIiwiYXVkIjoiaHR0cHM6Ly9hbmdlbC1iYWJ5LWRiL2FwaSIsImlhdCI6MTY2NzI4OTExOSwiZXhwIjoxNjY3Mzc1NTE5LCJhenAiOiJqYzI0U2pxc3k1VVpOZlhlZFRqRnY3YVdHMTdRT3lTRiIsImd0eSI6ImNsaWVudC1jcmVkZW50aWFscyJ9.b1NQYAATEaehp2CL4eya76p7oHA7OEwG1u_4zhCk49gBq0kt8GH0xz-pbbFDxCnyntzdMMI8xKVjl0fMiBBXogHbhBIRJLqxr53cc5Q1tWvrcfS4D8AIRoLG9pLsRQnPKdR0bDaE3P7i8J75o217r4UwY-zXwhVN3uOXhEbgc96vMXqaEb8AEqEQdC9PlVBL9TCS7N6r_koKZK_1M9suty-r77HSgvOXhIS4et0ALpGIaEIYvzUkKzTo-DT3Tluoem1GYhcJegz2AcV5qYxwNXSrM575yWVZUelXJq3qnuoPRSRM9cLtJXXHwd-xYMi-H3uAivu5UL9f5pO330SYkg';
 
 const axiosInstance = axios.create({
   baseURL: 'http://localhost:8095/api',
@@ -16,6 +16,30 @@ axiosInstance.defaults.headers.common['Accept'] = 'application/json;charset=UTF-
 axiosInstance.defaults.headers.common['Content-Type'] = 'application/json;charset=UTF-8';
 if (token) {
   axiosInstance.defaults.headers.common['Authorization'] = 'Bearer ' + token
+}
+
+const inboundAxiosInstance = axios.create({
+  baseURL: 'http://localhost:8092/api',
+  headers: {
+    Authorization: `Bearer ${accessToken}`,
+  }
+})
+inboundAxiosInstance.defaults.headers.common['Accept'] = 'application/json;charset=UTF-8';
+inboundAxiosInstance.defaults.headers.common['Content-Type'] = 'application/json;charset=UTF-8';
+if (token) {
+  inboundAxiosInstance.defaults.headers.common['Authorization'] = 'Bearer ' + token
+}
+
+const outboundAxiosInstance = axios.create({
+  baseURL: 'http://localhost:8092/api',
+  headers: {
+    Authorization: `Bearer ${accessToken}`,
+  }
+})
+outboundAxiosInstance.defaults.headers.common['Accept'] = 'application/json;charset=UTF-8';
+outboundAxiosInstance.defaults.headers.common['Content-Type'] = 'application/json;charset=UTF-8';
+if (token) {
+  outboundAxiosInstance.defaults.headers.common['Authorization'] = 'Bearer ' + token
 }
 
 export const authAPI = {
@@ -48,6 +72,7 @@ export const authAPI = {
 
 export const productAPI = {
   async getAll () {
+    
     const response = await axiosInstance.get('/product')
     if (response.status == 200) {
       return response.data
@@ -113,6 +138,44 @@ export const locationAPI = {
   },
   async saveNew (location) {
     const response = await axiosInstance.post('/location', location)
+    if (response.status == 201) {
+      return response.data
+    }
+    return {
+      success: false
+    }
+  }
+}
+
+export const inboundAPI = {
+  async getAll () {
+    const response = await inboundAxiosInstance.get('/inbound')
+    if (response.status == 200) {
+      return response.data
+    }
+    return []
+  },
+  async saveNew (inbound) {
+    const response = await inboundAxiosInstance.post('/inbound', inbound)
+    if (response.status == 201) {
+      return response.data
+    }
+    return {
+      success: false
+    }
+  }
+}
+
+export const outboundAPI = {
+  async getAll () {
+    const response = await outboundAxiosInstance.get('/outbound')
+    if (response.status == 200) {
+      return response.data
+    }
+    return []
+  },
+  async saveNew (outbound) {
+    const response = await outboundAxiosInstance.post('/outbound', outbound)
     if (response.status == 201) {
       return response.data
     }
