@@ -5,8 +5,8 @@
       <div class="flex items-center pb-4">
         <label for="type" class="p-8 pt-6 text-xl mr-5">Select Item:</label>
         <select name="type" id="type" class="bg-gray-100 uppercase rounded-lg w-18">type
-        <option value = "ID">ID</option>
-        <option value = "name">Name</option>
+          <option value = "ID">ID</option>
+          <option value = "name">Name</option>
         </select>
         <label for="table-search" class="w-36"></label>
         <div class="relative">
@@ -20,66 +20,61 @@
           <span class="sr-only">Search</span>
         </button>
       </div>
-        <div style="display: flex; justify-content: space-around">
+      <div style="display: flex; justify-content: space-around">
 
-          <div class="rounded-lg overflow-y-auto h-full relative">
-            <table class="w-2/3 rounded-xl text-sm text-left text-gray-500 dark:text-gray-400 table-auto ml-10 ">
-              <thead class="text-lg text-gray-700 uppercase bg-gray-50">
-                <tr>
-                  <th scope="col" class="py-3 px-6">
-                    ItemID
-                  </th>
-                  <th scope="col" class="py-3 px-6">
-                    Item Name
-                  </th>
-                  <th scope="col" class="py-3 px-6">
-                    Description
-                  </th>
-                </tr>
-              </thead>
-              <tbody v-for="stock in stocks" :key="stock.stockID">
-                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                  <th scope="row" class="py-4 px-10 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {{ stock.itemID }}
-                  </th>
-                  <td class="py-4 px-10">
-                    {{ stock.name }}
-                  </td>
-                  <td class="py-4 px-10">
-                    {{ stock.description }}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <div class="w-1/3 border-2 mx-10 p-3 my-20 h-80 bg-angelBaby-200 grid grid-rows-6 grid-flow-col gap-6 right-2">
-            <h3 class="float-left text-xl text-gray-50">
-              Stock ID
-            </h3>
-            <h3 class="float-left text-xl text-gray-50">
-              Item ID
-            </h3>
-            <h3 class="float-left text-xl text-gray-50">
-              Item Name
-            </h3>
-            <h3 class="float-left text-xl text-gray-50">
-              Description
-            </h3>
-            <h3 class="float-left text-xl text-gray-50">
-              Expire-Date
-            </h3>
-            <h3 class="float-left text-xl text-gray-50">
-              Quantity
-            </h3>
-          </div>
+        <div class="rounded-lg overflow-y-auto h-full relative">
+          <table class="w-2/3 rounded-xl text-sm text-left text-gray-500 dark:text-gray-400 table-auto ml-10 ">
+            <thead class="text-lg text-gray-700 uppercase bg-gray-50">
+            <tr>
+              <th scope="col" class="py-3 px-6">
+                ItemID
+              </th>
+              <th scope="col" class="py-3 px-6">
+                Item Name
+              </th>
+              <th scope="col" class="py-3 px-6">
+                Description
+              </th>
+            </tr>
+            </thead>
+            <tbody v-for="stock in stocks" :key="stock.stockID">
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+              <th scope="row" class="py-4 px-10 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                {{ stock.itemID }}
+              </th>
+              <td class="py-4 px-10">
+                {{ stock.name }}
+              </td>
+              <td class="py-4 px-10">
+                {{ stock.description }}
+              </td>
+            </tr>
+            </tbody>
+          </table>
         </div>
-    </div>
 
-<!--    <div>Hello World</div>-->
-<!--    <div v-for="stock in stocks" :key="stock.stockID">-->
-<!--        {{ stock }}-->
-<!--      </div>-->
+        <div class="w-1/3 border-2 mx-10 p-3 my-20 h-80 bg-angelBaby-200 grid grid-rows-6 grid-flow-col gap-6 right-2">
+          <h3 class="float-left text-xl text-gray-50">
+            Stock ID
+          </h3>
+          <h3 class="float-left text-xl text-gray-50">
+            Item ID
+          </h3>
+          <h3 class="float-left text-xl text-gray-50">
+            Item Name
+          </h3>
+          <h3 class="float-left text-xl text-gray-50">
+            Description
+          </h3>
+          <h3 class="float-left text-xl text-gray-50">
+            Expire-Date
+          </h3>
+          <h3 class="float-left text-xl text-gray-50">
+            Quantity
+          </h3>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -91,7 +86,7 @@ export default {
     const stock_store = useStockStore()
     return { stock_store }
   },
-  
+
   data() {
     return {
       title: "Stock List",
@@ -113,14 +108,14 @@ export default {
       }
     },
     searchProduct(){
-        if(this.selected == "ID"){
-          this.stocks = this.stock_store.getProductById(this.search)
-        }
-        if(this.selected == "Name"){
-          this.stocks = this.stock_store.getProductByName(this.search)
-        }
-        
-      },
+      if(this.selected == "ID"){
+        this.stocks = this.stock_store.getProductById(this.search)
+      }
+      if(this.selected == "Name"){
+        this.stocks = this.stock_store.getProductByName(this.search)
+      }
+
+    },
   },
   async mounted() {
     console.log("mounted")

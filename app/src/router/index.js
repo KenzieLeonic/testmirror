@@ -9,6 +9,11 @@ const router = createRouter({
       component: HomeView
     },
     {
+      path: '/show',
+      name: 'home.show',
+      component:() => import('../views/ShowItemView.vue')
+    },
+    {
       path: '/inbound',
       name: 'inbound',
       component: () => import('../views/InboundView.vue')
@@ -22,6 +27,11 @@ const router = createRouter({
       path:'/login',
       name:'login',
       component: () =>  import('../views/LoginView.vue')
+    },
+    {
+      path:'/history',
+      name:'history',
+      component:()=>import('../views/history/HistoryAllView.vue')
     },
     {
       path:'/test',

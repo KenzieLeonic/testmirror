@@ -1,7 +1,7 @@
 <template>
 <div class="absolute top-0 left-0">
-  <button @click="goBack">
-  <img src="/assets/return.png">
+  <button @click="goBack" class="p-2">
+  <img src="../assets/return.png" style="width:50px; height:50px">
   </button>
 </div>
 
