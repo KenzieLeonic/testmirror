@@ -64,12 +64,13 @@
           <thead class="text-xs text-gray-700 uppercase dark:text-gray-400">
             <tr class="border-t">
               <th scope="col" class="py-3 px-6 bg-gray-50 dark:bg-gray-800">Stock Id</th>
-              <th scope="col" class="py-3 px-6 bg-white">Inbound Date</th>
-              <th scope="col" class="py-3 px-6 bg-gray-50 dark:bg-gray-800">Outbound Date</th>
-              <th scope="col" class="py-3 px-6 bg-white">In/Out Quantity</th>
-              <th scope="col" class="py-3 px-6 bg-gray-50 dark:bg-gray-800">Quantity</th>
-              <th scope="col" class="py-3 px-6 bg-white">Employee</th>
-              <th scope="col" class="py-3 px-6 bg-gray-50 dark:bg-gray-800">Action</th>
+              <th scope="col" class="py-3 px-6 bg-white">Name</th>
+              <th scope="col" class="py-3 px-6 bg-gray-50">Inbound Date</th>
+              <th scope="col" class="py-3 px-6 bg-white dark:bg-gray-800">Outbound Date</th>
+              <th scope="col" class="py-3 px-6 bg-gray-50">In/Out Quantity</th>
+              <th scope="col" class="py-3 px-6 bg-white dark:bg-gray-800">Quantity</th>
+              <th scope="col" class="py-3 px-6 bg-gray-50">Employee</th>
+              <th scope="col" class="py-3 px-6 bg-white dark:bg-gray-800">Action</th>
 
             </tr>
           </thead>
@@ -78,12 +79,15 @@
               <th @click="logDetail(log)" scope="row"
                 class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
                 {{ log.stock.stockID }}</th>
-              <td @click="logDetail(log)" class="py-3 px-6 bg-white">{{log.productInDate}}</td>
-              <td @click="logDetail(log)" class="py-3 px-6 bg-gray-50 dark:bg-gray-800">{{log.productOutDate}}</td>
-              <td @click="logDetail(log)" class="py-3 px-6 bg-white">{{log.ioquantity}}</td>
-              <td @click="logDetail(log)" class="py-3 px-6 bg-gray-50 dark:bg-gray-800">{{ log.totalQuantity}}</td>
-              <td @click="logDetail(log)" class="py-3 px-6 bg-white">{{log.user.username}}</td>
-              <td @click="logDetail(log)" class="py-3 px-6 bg-gray-50 dark:bg-gray-800">
+              <th @click="logDetail(log)" scope="row"
+                  class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-white dark:text-white dark:bg-gray-800">
+                {{ log.stock.item.name }}</th>
+              <td @click="logDetail(log)" class="py-3 px-6 bg-gray-50">{{log.productInDate}}</td>
+              <td @click="logDetail(log)" class="py-3 px-6 bg-white dark:bg-gray-800">{{log.productOutDate}}</td>
+              <td @click="logDetail(log)" class="py-3 px-6 bg-gray-50">{{log.ioquantity}}</td>
+              <td @click="logDetail(log)" class="py-3 px-6 bg-white dark:bg-gray-800">{{ log.totalQuantity}}</td>
+              <td @click="logDetail(log)" class="py-3 px-6 bg-gray-50">{{log.user.username}}</td>
+              <td @click="logDetail(log)" class="py-3 px-6 bg-white dark:bg-gray-800">
                 <button class="px-2 py-1 border rounded-xl bg-angelBaby-300 text-white shadow-lg">Info</button>
               </td>
             </tr>
