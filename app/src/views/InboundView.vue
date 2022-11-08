@@ -95,11 +95,8 @@
           <h3 class="float-left text-xl text-gray-50">
             Expire-Date
           </h3>
-<<<<<<< HEAD
-          <input type="text"  class="bg-gray-100 rounded-lg">
-=======
           <input v-model="expireDate" type="text" class="bg-gray-100 rounded-lg">
->>>>>>> origin/dev
+
           <h3 class="float-left text-xl text-gray-50">
             Quantity
           </h3>
