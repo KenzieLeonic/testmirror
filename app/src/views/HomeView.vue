@@ -106,6 +106,10 @@ export default {
   async mounted() {
     console.log("mounted")
     this.error = null
+    // console.log(localStorage)
+    if (localStorage.getItem("login_success") == "false") {
+      this.$router.push('/login')
+    }
 
     try {
       await this.stock_store.fetch()

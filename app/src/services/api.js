@@ -1,16 +1,24 @@
 import axios from 'axios'
 
-const accessToken = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ing2ejZ0SnRDM1NxUXFadlhZNElVcCJ9.eyJpc3MiOiJodHRwczovL3JlaW5hLmpwLmF1dGgwLmNvbS8iLCJzdWIiOiJqYzI0U2pxc3k1VVpOZlhlZFRqRnY3YVdHMTdRT3lTRkBjbGllbnRzIiwiYXVkIjoiaHR0cHM6Ly9hbmdlbC1iYWJ5LWRiL2FwaSIsImlhdCI6MTY2Nzg3MTg3NywiZXhwIjoxNjY3OTU4Mjc3LCJhenAiOiJqYzI0U2pxc3k1VVpOZlhlZFRqRnY3YVdHMTdRT3lTRiIsImd0eSI6ImNsaWVudC1jcmVkZW50aWFscyJ9.CC2iwhRchzWYL2OMhOeK_jNK_T-95jOv2Yw-tV1-PbjCuvpNUzw5WspRhStZxr9KtcjS71e3FDpHSSdtkPaKXpGsYZ_4aCqUFUez3puSIXxG0MzGSECGxd7HKPSp-roXkQ9j_9yQIZ-dV-DqY8WVR0Nb1A62ECwLqtXspm9ktXqES3XqtGu9iM5d-hr8c2-n0rJ4acxk9qFdlfsRgTbFIVMD5L_vNkZ05_TIhI-nHNoWCT1PIfiHVvl9iIryUAcmnEicadu6o1YOBfqK8Eo4l0cxFzYOxx_BMNacQf6NWO1p50Vjquu4oRhWeMz5AY10dR5qOW8uMoAnie-cXxT2hw';
+const JWT_TOKEN_LOCALSTORAGE_KEY = 'jwt_token'
+const token = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ing2ejZ0SnRDM1NxUXFadlhZNElVcCJ9.eyJpc3MiOiJodHRwczovL3JlaW5hLmpwLmF1dGgwLmNvbS8iLCJzdWIiOiJqYzI0U2pxc3k1VVpOZlhlZFRqRnY3YVdHMTdRT3lTRkBjbGllbnRzIiwiYXVkIjoiaHR0cHM6Ly9hbmdlbC1iYWJ5LWRiL2FwaSIsImlhdCI6MTY2NzkxNTY4MiwiZXhwIjoxNjY4NTIwNDgyLCJhenAiOiJqYzI0U2pxc3k1VVpOZlhlZFRqRnY3YVdHMTdRT3lTRiIsImd0eSI6ImNsaWVudC1jcmVkZW50aWFscyJ9.WIUJ2haoe3u3KbgD6QLW_L91clf-rp_vPmuyveUkR4KaUcYSGDdWksJOlnhk6YSYslpZFakM9TVK2zKiynk8jhxuBmE8ROJ-7wivKQlWSiXe9wFaetZ5HPwQhpmwq-UzGgbM2S1gg9AYPxTZwBT4BTTL8AFVEt5WxyeTVvUgbbbQIkOqNB89lA7eGcXwUDpMlw0nuWSNw_5gNwQ6KVGt8mohFwyBpZSx27eswS3pJar1DfhNPL2tNPQNTs0MzKKFHaL3brTzdL1OIuffh9BRu9Jarbytx5WmsT60OhED2MN4k3IRu1gOn_4DVp16HaRfmwhKGN9mXzRVN7MmHMS5cg";
 
 const axiosInstance = axios.create({
   baseURL: 'http://localhost:8095/api',
   headers: {
-    Authorization: `Bearer ${accessToken}`,
+    Authorization: `Bearer ${token}`,
+  }
+})
+const loginInstance = axios.create({
+  baseURL: 'http://localhost:8095',
+  headers: {
+    Authorization: `Bearer ${token}`,
   }
 })
 
-const JWT_TOKEN_LOCALSTORAGE_KEY = 'jwt_token'
-const token = localStorage.getItem(JWT_TOKEN_LOCALSTORAGE_KEY);
+loginInstance.defaults.headers.common['Accept'] = 'application/json;charset=UTF-8';
+loginInstance.defaults.headers.common['Content-Type'] = 'application/json;charset=UTF-8';
+
 
 axiosInstance.defaults.headers.common['Accept'] = 'application/json;charset=UTF-8';
 axiosInstance.defaults.headers.common['Content-Type'] = 'application/json;charset=UTF-8';
@@ -21,7 +29,7 @@ if (token) {
 const inboundAxiosInstance = axios.create({
   baseURL: 'http://localhost:8092/api',
   headers: {
-    Authorization: `Bearer ${accessToken}`,
+    Authorization: `Bearer ${token}`,
   }
 })
 inboundAxiosInstance.defaults.headers.common['Accept'] = 'application/json;charset=UTF-8';
@@ -33,7 +41,7 @@ if (token) {
 const outboundAxiosInstance = axios.create({
   baseURL: 'http://localhost:8093/api',
   headers: {
-    Authorization: `Bearer ${accessToken}`,
+    Authorization: `Bearer ${token}`,
   }
 })
 outboundAxiosInstance.defaults.headers.common['Accept'] = 'application/json;charset=UTF-8';
@@ -43,30 +51,26 @@ if (token) {
 }
 
 export const authAPI = {
-  async login (email, password) {
-    const response = await axiosInstance.post('/auth/login', {
-      email,
+  async login (username, password,) {
+    const response = await loginInstance.post('/login', {
+      username,
       password
     })
-    if (response.status == 200) {
-      localStorage.setItem(JWT_TOKEN_LOCALSTORAGE_KEY, response.data.access_token)
-      return true
+    // console.log(response.data)
+    if (response.data.success) {
+      localStorage.setItem("username", username)
+      localStorage.setItem("login_success", true)
+      return response.data
+    } else {
+      localStorage.removeItem("username")
+      localStorage.setItem("login_success", false)
+      return response.data
     }
-    return false
-  },
-  async me () {
-    const _token = localStorage.getItem(JWT_TOKEN_LOCALSTORAGE_KEY)
-    if (_token) {
-      axiosInstance.defaults.headers.common['Authorization'] = 'Bearer ' + _token
-    }
-    const response = await axiosInstance.post('/auth/me')
-    if (response.status == 200) {
-      return response.data.data
-    } 
-    return {}
   },
   logout () {
     localStorage.removeItem(JWT_TOKEN_LOCALSTORAGE_KEY)
+    localStorage.removeItem("username")
+    localStorage.setItem("login_success", false)
   }
 }
 

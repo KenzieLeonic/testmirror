@@ -2,13 +2,12 @@
   <div v-if="error">
     {{ error }}
   </div>
-  <form @submit.prevent="onFormSubmit()">
     <div class="h-screen md:flex">
       <div
           class="relative items-center justify-around hidden object-scale-down w-1/2 overflow-hidden md:flex bg-hero-pattern">
       </div>
       <div class="flex items-center justify-center w-1/2 bg-white">
-        <form class="bg-white">
+        <form class="bg-white" @submit.prevent="onFormSubmit()">
           <h1 class="mb-10 text-2xl font-bold text-gray-800" style="text-align:center">AngelBaby</h1>
           <div class="flex items-center px-3 py-2 mb-4 border-2 rounded-2xl">
             <svg class="bi bi-person-circle" fill="currentColor" height="16" viewBox="0 0 16 16"
@@ -33,12 +32,11 @@
           <button :class="disabledButton ? 'bg-gray-400 ': 'bg-angelBaby-300'" :disabled="disabledButton"
                   class="block w-full py-2 mt-4 mb-2 font-semibold text-white bg-angelBaby-300 rounded-xl"
                   type="submit">
-            <RouterLink to="/">Login</RouterLink>
+            Login
           </button>
         </form>
       </div>
     </div>
-  </form>
 </template>
 
 <script>
@@ -47,29 +45,42 @@ import {useAuthStore} from "@/stores/auth.js"
 export default {
   setup() {
     const auth_store = useAuthStore()
-    return {auth_store}
+    return {
+      auth_store
+    }
   },
   data() {
     return {
       username: '',
       password: '',
       error: null,
-      disabledButton: false
+      disabledButton: false,
+    }
+  },
+  mounted() {
+    this.auth_store.fetch()
+    if (localStorage.getItem("login_success") == "true") {
+      this.$router.push('/')
     }
   },
   methods: {
     async onFormSubmit() {
+
       this.error = null
       this.disabledButton = true
       //push related ไปที่หน้า home
+
       try {
-        if (await this.auth_store.login(this.username, this.password)) {
+        var res = await this.auth_store.login(this.username, this.password)
+        console.log(res)
+        if (res.success) {
           this.$router.push('/')
         } else {
           this.disabledButton = false
         }
       } catch (error) {
         this.error = error.message
+        console.log(error)
         this.disabledButton = false
       }
     }

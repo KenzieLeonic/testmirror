@@ -39,6 +39,9 @@
     },
     async mounted() {
       console.log("mounted")
+      if (localStorage.getItem("login_success") == "false") {
+      this.$router.push('/login')
+    }
       this.error = null
   
       try {

@@ -3,7 +3,7 @@
   <header>
     <nav class="bg-angelBaby-300 border-gray-200 px-2 sm:px-4 py-4 font-mono">
       <div class="container flex flex-wrap justify-between items-center mx-auto">
-        <RouterLink to="/" class="text-white text-2xl font-bold border-red-600">Angle Baby</RouterLink>
+        <RouterLink to="/" class="text-white text-2xl font-bold border-red-600">Angel Baby</RouterLink>
         <RouterLink to="/inbound" @click="toggle" class="text-white  text-2xl font-bold focus:border-b-2 border-red-600"> นำของเข้า</RouterLink>
         <RouterLink to="/outbound" class="text-white text-2xl font-bold focus:border-b-2 border-red-600">นำของออก</RouterLink>
       <RouterLink to="/history" class="text-white text-2xl font-bold focus:border-b-2 border-red-600">ประวัติการนำเข้า-ออก</RouterLink>
@@ -18,10 +18,10 @@
               <div class="dropdown-content w-32 rounded-lg">
                 <button class="dropbtn flex items-center mr-2 mb-1 p-2 rounded-lg">
                   <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" style="height: 30px; width: 30px; ">
-                  <p class="mx-2">{{ auth.email }}</p>
+                  <p class="mx-2">{{ auth }}</p>
                 </button>
                 <div class="dropdown-content w-32 rounded-lg">
-                  <a href="/login" class="rounded-lg">ออกจากระบบ</a>
+                  <a href="/logout" class="rounded-lg">ออกจากระบบ</a>
                 </div>
               </div>
             </a>
@@ -53,16 +53,16 @@ export default {
           immediate: true,
           deep: true,
           handler(newValue, oldValue) {
-            console.log(newValue.getAuth)
-            this.auth = this.auth_store.getAuth
+            // console.log(newValue.getUsername)
+            this.auth = this.auth_store.getUsername
           }
       }
   },
   mounted() {
-    if (this.auth_store.isAuthen) {
-      this.auth = this.auth_store.getAuth
-    } else {
-      this.auth = null
+    this.auth_store.fetch()
+    if (this.auth_store.isLogin) {
+      this.auth = this.auth_store.getUsername
+      // console.log(this.auth)
     }
     
   }

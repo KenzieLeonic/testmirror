@@ -1,50 +1,42 @@
 import { defineStore } from 'pinia'
 import { authAPI } from '@/services/api'
 
-const auth_storage = {
-  email: localStorage.getItem('auth.email'),
-}
-
 export const useAuthStore = defineStore({
   id: 'auth',
   state: () => {
     return {
-      auth: {
-        email: auth_storage.email,
-      }
-    }
+      username: null,
+      login_success: null,
+     }
   },
-
   getters: {
-    getAuth: (state) => state.auth,
+    getUsername: (state) => state.username,
+    isLogin: (state) => state.login_success,
 
-    getEmail: (state) => state.auth.email,
-
-    isAuthen (state) {
-      return state.auth.email != null
-    }
   },
 
   actions: {
-    async login (email, password) {
-      if (await authAPI.login(email, password)) {
+    async login (username, password) {
+      var res = await authAPI.login(username, password)
+      // console.log(res)
+
+      if (res.success) {
         this.fetch()
-        return true
+        console.log(localStorage)
       }
-      return false
+      // console.log(localStorage)
+      return res
     },
 
     async fetch () {
-      this.auth = await authAPI.me()
-      localStorage.setItem('auth.email', this.auth.email)
+      this.username = localStorage.getItem("username")
+      this.login_success = localStorage.getItem("login_success")
     },
 
     logout () {
       authAPI.logout()
-      localStorage.removeItem('auth.email')
-      this.auth = {
-        email: null,
-      }
-    }
+      this.username = null
+      this.login_success = false
+    },
   }
 })
