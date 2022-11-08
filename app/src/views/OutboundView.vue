@@ -203,7 +203,7 @@ export default {
       this.count++;
     },
     decrement() {
-      this.count--;
+      if(this.count >= 1){this.count--;}
     },
     async addOutbound(){
       this.error = null

@@ -160,11 +160,13 @@
 <script>
 import {useStockStore} from '@/stores/stock.js'
 import { useInboundStore } from '@/stores/inbound.js'
+import {useAuthStore} from "@/stores/auth.js"
 export default {
   setup() {
     const stock_store = useStockStore()
     const inbound_store = useInboundStore()
-    return { stock_store, inbound_store }
+    const auth_store = useAuthStore()
+    return { stock_store, inbound_store, auth_store }
   },
 
   data() {
@@ -222,7 +224,7 @@ export default {
       this.count++;
     },
     decrement() {
-      this.count--;
+      if(this.count >= 1){this.count--;}
     },
     async addInbound(){
       this.error = null
@@ -257,6 +259,8 @@ export default {
 
       await this.inbound_store.fetch()
       this.inbounds = this.inbound_store.getInbounds
+
+      
     } catch (error) {
       this.error = error.message
     }
