@@ -48,18 +48,18 @@
               </th>
             </tr>
             </thead>
-            <tbody v-for="log in logs" v-bind:key="log.logID">
-            <tr v-if="log.type == 'inbound'"
+            <tbody v-for="stock in stocks" v-bind:key="stock.stockID">
+            <tr 
                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <th @click="logDetail(log)" scope="row" class="py-4 px-10 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  {{ log.stock.item.itemID }}
+                <th @click="stockDetail(stock)" scope="row" class="py-4 px-10 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  {{ stock.item.itemID }}
 
                 </th>
-                <td @click="logDetail(log)" class="py-4 px-10">
-                  {{ log.stock.item.name }}
+                <td @click="stockDetail(stock)" class="py-4 px-10">
+                  {{ stock.item.name }}
                 </td>
-                <td @click="logDetail(log)" class="py-4 px-10">
-                  {{ log.stock.item.description }}
+                <td @click="stockDetail(stock)" class="py-4 px-10">
+                  {{ stock.item.description }}
                 </td>
               </tr>
             </tbody>
@@ -71,25 +71,25 @@
             Stock ID
           </h3>
           <h3 class="float-left text-xl text-gray-50">
-            {{selected.stock.stockID}}
+            {{selected.stockID}}
           </h3>
           <h3 class="float-left text-xl text-gray-50">
             Item ID
           </h3>
           <h3 class="float-left text-xl text-gray-50">
-            {{selected.stock.item.itemID}}
+            {{selected.item.itemID}}
           </h3>
           <h3 class="float-left text-xl text-gray-50">
             Item Name
           </h3>
           <h3 class="float-left text-xl text-gray-50">
-            {{selected.stock.item.name}}
+            {{selected.item.name}}
           </h3>
           <h3 class="float-left text-xl text-gray-50">
             Description
           </h3>
           <h3 class="float-left text-xl text-gray-50">
-            {{selected.stock.item.description}}
+            {{selected.item.description}}
           </h3>
 
           <h3 class="float-left text-xl text-gray-50">
@@ -150,20 +150,20 @@
   </div>
 </template>
 <script>
-import { useLogStore } from '@/stores/log.js'
+import {useStockStore} from '@/stores/stock.js'
 import { useInboundStore } from '@/stores/inbound.js'
 export default {
   setup() {
-    const log_store = useLogStore()
+    const stock_store = useStockStore()
     const inbound_store = useInboundStore()
-    return { log_store, inbound_store }
+    return { stock_store, inbound_store }
   },
 
   data() {
     return {
-      title: "Log List",
+      title: "stock List",
       selected: null,
-      logs: null,
+      stocks: null,
       inbounds: '',
       error: null,
       sortOption: 'default',
@@ -183,20 +183,20 @@ export default {
   },
   watch: {},
   methods: {
-    async refreshLogs(data) {
+    async refreshStocks(data) {
       if (data.refresh) {
-        await this.log_store.fetch()
-        this.logs = this.log_store.getLogs
+        await this.stock_store.fetch()
+        this.stocks = this.stock_store.getStocks
       }
     },
     async refreshInbounds(data) {
       if (data.refresh) {
         await this.inbound_store.fetch()
-        this.logs = this.inbound_store.getLogs
+        this.inbounds = this.inbound_store.getInbounds
       }
     },
-    logDetail(log) {
-      this.selected = log
+    stockDetail(stock) {
+      this.selected = stock
     },
     increment() {
       this.count++;
@@ -211,7 +211,7 @@ export default {
       this.inbound.type = "inbound"
       this.inbound.productInDate = "22/10/2022"
       this.inbound.stock.quantity = this.count
-      this.inbound.stock.itemID = this.selected.stock.item.itemID
+      this.inbound.stock.itemID = this.selected.item.itemID
       this.inbound.stock.expire = this.expireDate
       this.inbound.userID = 1
 
@@ -232,8 +232,9 @@ export default {
     this.error = null
 
     try {
-      await this.log_store.fetch()
-      this.logs = this.log_store.getLogs
+      await this.stock_store.fetch()
+      this.stocks = this.stock_store.getStocks
+
       await this.inbound_store.fetch()
       this.inbounds = this.inbound_store.getInbounds
     } catch (error) {
