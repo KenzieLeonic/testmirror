@@ -97,7 +97,9 @@
           </h3>
           <div class="text-gray-50">
             <button v-on:click="increment" class="border-2 rounded-lg">increment</button>
-            <span class="mx-2">{{ count }}</span>
+            <!-- <span class="mx-2">{{ count }}</span> -->
+            <input type="number" v-model="count"
+            class="text-center w-20 overflow-hidden rounded-lg shadow bg-white border border-gray-300 py-3 mr-2">
             <button v-on:click="decrement" class="border-2 rounded-lg">decrement</button>
           </div>
           <button @click="addOutbound" class="px-4 py-2 font-bold text-white rounded-lg bg hover:bg-[#10122e] bg-angelBaby-300"
@@ -127,9 +129,10 @@
             Quantity
           </h3>
           <div class="text-gray-50">
-            <button v-on:click="increment" class="border-2 rounded-lg">increment</button>
-            <span class="mx-2">{{ count }}</span>
             <button v-on:click="decrement" class="border-2 rounded-lg">decrement</button>
+            <!-- <span class="mx-2">{{ count }}</span> -->
+            <input type="number" v-model="count" class="mx-2  text-black text-center overflow-hidden rounded-lg shadow bg-white border border-gray-300 ">
+            <button v-on:click="increment" class="border-2 rounded-lg">increment</button>
           </div>
           <button class="px-4 py-2 font-bold text-white rounded-lg bg hover:bg-[#10122e] bg-angelBaby-300"
                   style="align-items: center;">
@@ -209,16 +212,17 @@ export default {
       this.error = null
 
       console.log("clickAddOutbound")
-      this.inbound.type = "inbound"
-      this.inbound.productInDate = "22/10/2022"
-      this.inbound.stock.quantity = this.count
-      this.inbound.stock.itemID = this.selected.item.itemID
-      this.inbound.stock.expire = this.expireDate
-      this.inbound.userID = 1
+
+       this.outbound.type = "outbound"
+      // this.outbound.productOutDate = this.selected.expire
+      this.outbound.productOutDate = "1/11/1111"
+      this.outbound.IOQuantity = this.count
+      this.outbound.itemID = this.selected.item.itemID
+       this.outbound.userID = 1
 
       try {
-        const inbound_id = await this.inbound_store.add(this.inbound)
-        if (inbound_id) {
+        const outbound_id = await this.outbound_store.add(this.outbound)
+        if (outbound_id) {
           console.log("add complete")
           // this.$router.push(`/`)
         }
