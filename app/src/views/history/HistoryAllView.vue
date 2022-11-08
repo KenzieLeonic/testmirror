@@ -48,13 +48,13 @@
         <div class="flex items-center mr-4">
           <input id="inline-checkbox"
             class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-            type="checkbox" value="inbound" @click="selectInbound">
+            type="checkbox" value="inbound"  v-model="inbound">
           <label class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300" for="inline-checkbox">Inbound</label>
         </div>
         <div class="flex items-center mr-4">
           <input id="inline-2-checkbox"
             class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-            type="checkbox" value="outbound" @click="selectOutbound">
+            type="checkbox" value="outbound" v-model="outbound">
           <label class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
             for="inline-2-checkbox">Outbound</label>
         </div>
@@ -73,7 +73,7 @@
 
             </tr>
           </thead>
-          <tbody v-for="log in logs" v-bind:key="log.logID">
+          <tbody v-for="log in logView" v-bind:key="log.logID">
             <tr class="border-t">
               <th @click="logDetail(log)" scope="row"
                 class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
@@ -96,7 +96,6 @@
 
 <script>
 import {useLogStore} from '@/stores/log.js'
-
 export default {
   setup() {
     const log_store = useLogStore()
@@ -111,6 +110,8 @@ export default {
       search: '',
       choose:'',
       error: null,
+      inbound:true,
+      outbound:true,
       sortOption: 'default',
       count: 0
     }
@@ -131,14 +132,7 @@ export default {
         this.logs = this.log_store.getLogByName(this.search)
       }
     },
-    async selectInbound(data){
-      this.refreshLogs(data)
-      this.logs = this.log_store.filterInbound()
-    },
-    async selectOutbound(data){
-      this.refreshLogs(data)
-      this.logs = this.log_store.filterOutbound()
-    },
+
     logDetail(log) {
       this.selected = log
     },
@@ -149,6 +143,14 @@ export default {
       this.count--;
     }
   },
+  computed: {
+    logView(){
+      // เช็ค null
+      return this.logs.filter(log => (log.type == "outbound" && this.outbound) || (log.type == "inbound" && this.inbound))
+    },
+
+  },
+
   async mounted() {
     console.log("mounted")
     this.error = null

@@ -17,10 +17,10 @@ export const useLogStore = defineStore({
             return state.logs.filter(log => log.stock.item.name === name)
         },
         filterInbound: (state) => {
-            return state.stocks.filter(stock => stock.type === "inbound")
+            return state.stocks.find(log => log.type === "inbound")
         },
         filterOutbound: (state) => {
-            return state.stocks.filter(stock => stock.type === "outbound")
+            return state.stocks.find(log => log.type === "outbound")
         },
     },
     actions: {
