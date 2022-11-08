@@ -7,7 +7,7 @@
         <RouterLink to="/inbound" @click="toggle" class="text-white  text-2xl font-bold focus:border-b-2 border-red-600"> นำของเข้า</RouterLink>
         <RouterLink to="/outbound" class="text-white text-2xl font-bold focus:border-b-2 border-red-600">นำของออก</RouterLink>
       <RouterLink to="/history" class="text-white text-2xl font-bold focus:border-b-2 border-red-600">ประวัติการนำเข้า-ออก</RouterLink>
-<!--        <RouterLink to="/login" class="text-white text-2xl font-bold focus:border-b-2 border-red-600">เข้าสู่ระบบ</RouterLink>-->
+
         <div class="justify-between items-center w-full md:flex md:w-auto md:order-1 flex">
           <div class="bg-white rounded-xl">
             <a class="container flex flex-wrap justify-between items-center">

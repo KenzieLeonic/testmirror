@@ -25,7 +25,7 @@
         </div>
         <button
             class="p-2.5 ml-2 text-sm font-medium text-white rounded-lg bg-angelBaby-300  border border-angelBaby-300 hover:bg-blue-800 focus:ring-3 focus:outline-none focus:ring-angelBaby-200"
-            type="submit" >
+            type="submit" @click="searchStock">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round"
                   stroke-width="2"></path>
@@ -65,7 +65,7 @@
 </template>
 
 <script>
-import {useStockStore} from '@/stores/stock.js'
+import {useStockStore} from '../stores/stock.js'
 
 export default {
   setup() {
@@ -76,7 +76,7 @@ export default {
   data() {
     return {
       title: "Stock List",
-      selected: "Name",
+      selected: "",
       search: "",
       stocks: null,
       error: null,
@@ -88,6 +88,14 @@ export default {
       if (data.refresh) {
         await this.stock_store.fetch()
         this.stocks = this.stock_store.getStocks
+      }
+    },
+    async searchStock() {
+      if (this.selected == "ID") {
+        this.stocks= this.stock_store.getStockById(this.search)
+      }
+      if (this.selected == "Name") {
+        this.stocks = this.stock_store.getStockByName(this.search)
       }
     },
     navigate(link){
