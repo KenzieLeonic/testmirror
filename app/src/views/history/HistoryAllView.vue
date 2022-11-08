@@ -145,7 +145,9 @@ export default {
   },
   computed: {
     logView(){
-      // เช็ค null
+      if(this.logs == null){
+        return []
+      }
       return this.logs.filter(log => (log.type == "outbound" && this.outbound) || (log.type == "inbound" && this.inbound))
     },
 
