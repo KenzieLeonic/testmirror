@@ -1,6 +1,6 @@
 <template >
-      <div v-for="inbound in inbounds" :key="inbound.itemID">
-        {{ inbound }}
+      <div >
+        {{ inbounds }}
       </div>
 
       <div>

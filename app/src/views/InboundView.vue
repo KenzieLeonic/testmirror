@@ -18,7 +18,7 @@
                     clip-rule="evenodd"></path>
             </svg>
           </div>
-          <input type="text" id="table-search" v-model="search"
+          <input type="text" id="table-search"
                  class="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                  placeholder="Search for items">
         </div>
@@ -95,7 +95,11 @@
           <h3 class="float-left text-xl text-gray-50">
             Expire-Date
           </h3>
+<<<<<<< HEAD
           <input type="text"  class="bg-gray-100 rounded-lg">
+=======
+          <input v-model="expireDate" type="text" class="bg-gray-100 rounded-lg">
+>>>>>>> origin/dev
           <h3 class="float-left text-xl text-gray-50">
             Quantity
           </h3>
@@ -104,7 +108,7 @@
             <span class="mx-2">{{ count }}</span>
             <button v-on:click="decrement" class="border-2 rounded-lg">decrement</button>
           </div>
-          <button class="px-4 py-2 font-bold text-white rounded-lg bg hover:bg-[#10122e] bg-angelBaby-300"
+          <button @click="addInbound" class="px-4 py-2 font-bold text-white rounded-lg bg hover:bg-[#10122e] bg-angelBaby-300"
                   style="align-items: center;">
                   Submit
           </button>
@@ -151,10 +155,12 @@
 </template>
 <script>
 import { useLogStore } from '@/stores/log.js'
+import { useInboundStore } from '@/stores/inbound.js'
 export default {
   setup() {
     const log_store = useLogStore()
-    return { log_store }
+    const inbound_store = useInboundStore()
+    return { log_store, inbound_store }
   },
 
   data() {
@@ -162,9 +168,21 @@ export default {
       title: "Log List",
       selected: null,
       logs: null,
+      inbounds: '',
       error: null,
       sortOption: 'default',
-      count: 0
+      count: 0,
+      expireDate: '',
+      inbound:{
+        type:'',
+        productInDate: '',
+        stock: {
+          expire: '',
+          quantity: '',
+          itemID: ''
+        },
+        userID: ''
+      }
     }
   },
   watch: {},
@@ -175,6 +193,12 @@ export default {
         this.logs = this.log_store.getLogs
       }
     },
+    async refreshInbounds(data) {
+      if (data.refresh) {
+        await this.inbound_store.fetch()
+        this.logs = this.inbound_store.getLogs
+      }
+    },
     logDetail(log) {
       this.selected = log
     },
@@ -183,6 +207,28 @@ export default {
     },
     decrement() {
       this.count--;
+    },
+    async addInbound(){
+      this.error = null
+
+      console.log("clickAddInbound")
+      this.inbound.type = "inbound"
+      this.inbound.productInDate = "22/10/2022"
+      this.inbound.stock.quantity = this.count
+      this.inbound.stock.itemID = this.selected.stock.item.itemID
+      this.inbound.stock.expire = this.expireDate
+      this.inbound.userID = 1
+
+      try {
+        const inbound_id = await this.inbound_store.add(this.inbound)
+        if (inbound_id) {
+          console.log("add complete")
+          // this.$router.push(`/`)
+        }
+      } catch (error) {
+        this.error = error.message
+        console.error(error)
+      }
     }
   },
   async mounted() {
@@ -192,6 +238,8 @@ export default {
     try {
       await this.log_store.fetch()
       this.logs = this.log_store.getLogs
+      await this.inbound_store.fetch()
+      this.inbounds = this.inbound_store.getInbounds
     } catch (error) {
       this.error = error.message
     }
