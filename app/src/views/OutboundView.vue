@@ -101,7 +101,7 @@
           </div>
           <button class="px-4 py-2 font-bold text-white rounded-lg bg hover:bg-[#10122e] bg-angelBaby-300"
                   style="align-items: center;">
-            Button
+                  Submit
           </button>
         </div>
 
