@@ -81,6 +81,7 @@ export default {
       selected: "Name",
       search: "",
       products: null,
+      productSearch: '',
       error: null,
     }
   },
@@ -94,10 +95,10 @@ export default {
     },
     searchProduct() {
       if (this.selected == "ID") {
-        this.products = this.product_store.getProductById(this.search)
+        this.productSearch = this.product_store.getProductById(this.search)
       }
       if (this.selected == "Name") {
-        this.products = this.product_store.getProductByName(this.search)
+        this.productSearch = this.product_store.getProductByName(this.search)
       }
 
     },
