@@ -15,7 +15,7 @@ export const useStockStore = defineStore({
             return state.stocks.find(stock => stock.stockID === stockID)
         },
         getStockByName: (state) => (name) => {
-            return state.products.find(stock => stock.name === name)
+            return state.stocks.find(stock => stock.item.name === name)
         },
     },
     actions: {
