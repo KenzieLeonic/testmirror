@@ -11,14 +11,14 @@
         </div>
         <div class="box-border h-full w-full p-4 border-4 bg-white shadow-lg mt-6">
           <p class="pt-10 pb-5">รายละเอียด: {{stocks.item.description}}</p>
-          <div>
+          <!-- <div>
             <p class="pb-5" v-if="">จำนวนที่นำเข้า: {{log.ioquantity}} </p>
           </div>
           <div>
             <p class="pb-5" v-else>
               วันที่นำออกล่าสุด:
             </p>
-          </div>
+          </div> -->
           <p class="pb-5">วันที่นำเข้าล่าสุด:</p>
           <p class="pb-5">วันที่หมดอายุ: {{stock.item}}</p>
           <p class="pb-5">สถานที่เก็บ: </p>

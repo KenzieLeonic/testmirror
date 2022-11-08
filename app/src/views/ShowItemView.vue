@@ -1,7 +1,6 @@
 <template>
   <div class="min-h-screen bg-angelBaby-100">
     <div class="mx-auto font-mono text-gray-700 max-w-7xl" >
-      <BackButton class="my-20" />
       <h1 class="pt-6 pl-8 text-xl">Show Item</h1>
       <div class="pl-8 pt-3">
         <p>รหัสสินค้า #1111</p>
@@ -16,10 +15,6 @@
           <p class="pb-10">บริษัทที่นำเข้า: {{stocks.item.supplierName}}</p>
         </div>
       </div>
-    </div>
-
-    <div>
-      <p>test: {{stocks}}</p>
     </div>
   </div>
 </template>
@@ -39,7 +34,13 @@ export default {
       title: "Stock List",
       selected: "Name",
       search: "",
-      stocks: null,
+      stocks: {
+        item: {
+          description: null,
+          supplierName: null
+        },
+        quantity: null
+      },
       error: null,
     }
   },
