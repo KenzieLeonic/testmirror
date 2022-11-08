@@ -6,6 +6,7 @@ export const useAuthStore = defineStore({
   state: () => {
     return {
       username: null,
+      userId: null,
       login_success: null,
      }
   },
@@ -31,6 +32,7 @@ export const useAuthStore = defineStore({
     async fetch () {
       this.username = localStorage.getItem("username")
       this.login_success = localStorage.getItem("login_success")
+      this.userId = localStorage.getItem("userId")
     },
 
     logout () {

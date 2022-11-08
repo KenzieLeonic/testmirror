@@ -60,9 +60,11 @@ export const authAPI = {
     if (response.data.success) {
       localStorage.setItem("username", username)
       localStorage.setItem("login_success", true)
+      localStorage.setItem("userId", response.data.userId)
       return response.data
     } else {
       localStorage.removeItem("username")
+      localStorage.removeItem("userId")
       localStorage.setItem("login_success", false)
       return response.data
     }
