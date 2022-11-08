@@ -2,11 +2,17 @@
   <div class="min-h-screen bg-angelBaby-100">
     <div class="mx-auto font-mono text-gray-700 max-w-7xl">
       <h1 class="pt-6 pl-8 text-xl">ประวัติการนำเข้า-ออก</h1>
-      <div class="pl-8 py-4 ">
-        <p class="text-base">Item ID: 001</p>
-        <p class="text-base">Item Name: Taddy Bear</p>
-        <p class="text-base">Item Quantity: 6</p>
+      <div v-if="selected != null" class="pl-8 py-4 ">
+        <p class="text-base">Item ID: {{selected.stock.item.itemID}}</p>
+        <p class="text-base">Item Name: {{selected.stock.item.name}}</p>
+        <p class="text-base">Item Quantity: {{selected.totalQuantity}}</p>
       </div>
+      <div v-else class="pl-8 py-4 ">
+        <p class="text-base">Item ID: </p>
+        <p class="text-base">Item Name: </p>
+        <p class="text-base">Item Quantity:</p>
+      </div>
+
       <div class="flex items-center pb-0">
         <label class="p-8 pt-6 mr-5 text-lg" for="type">Select Item:</label>
         <select id="type" class="uppercase bg-gray-100 rounded-lg w-18" name="type">type
@@ -69,16 +75,16 @@
           </thead>
           <tbody v-for="log in logs" v-bind:key="log.logID">
             <tr class="border-t">
-              <th scope="row"
+              <th @click="logDetail(log)" scope="row"
                 class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
                 {{ log.stock.stockID }}</th>
-              <td class="py-3 px-6 bg-white">{{log.productInDate}}</td>
-              <td class="py-3 px-6 bg-gray-50 dark:bg-gray-800">{{log.productOutDate}}</td>
-              <td class="py-3 px-6 bg-white">{{log.ioquantity}}</td>
-              <td class="py-3 px-6 bg-gray-50 dark:bg-gray-800">{{ log.totalQuantity}}</td>
-              <td class="py-3 px-6 bg-white">{{log.user.username}}</td>
-              <td class="py-3 px-6 bg-gray-50 dark:bg-gray-800">
-                <button class="px-2 py-1 border rounded-xl">แก้ไข</button>
+              <td @click="logDetail(log)" class="py-3 px-6 bg-white">{{log.productInDate}}</td>
+              <td @click="logDetail(log)" class="py-3 px-6 bg-gray-50 dark:bg-gray-800">{{log.productOutDate}}</td>
+              <td @click="logDetail(log)" class="py-3 px-6 bg-white">{{log.ioquantity}}</td>
+              <td @click="logDetail(log)" class="py-3 px-6 bg-gray-50 dark:bg-gray-800">{{ log.totalQuantity}}</td>
+              <td @click="logDetail(log)" class="py-3 px-6 bg-white">{{log.user.username}}</td>
+              <td @click="logDetail(log)" class="py-3 px-6 bg-gray-50 dark:bg-gray-800">
+                <button @click="logDetail(log)" class="px-2 py-1 border rounded-xl">แก้ไข</button>
               </td>
             </tr>
           </tbody>
