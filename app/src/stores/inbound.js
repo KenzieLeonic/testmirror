@@ -27,7 +27,7 @@ export const useInboundStore = defineStore({
     
         delete (id) {
           this.inbounds = this.inbounds.filter((inbound) => inbound.id != id)
-        }
+        },
       }
     
     })

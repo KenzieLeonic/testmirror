@@ -170,7 +170,7 @@ export const inboundAPI = {
     return {
       success: false
     }
-  }
+  },
 }
 
 export const outboundAPI = {
