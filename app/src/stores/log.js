@@ -11,6 +11,12 @@ export const useLogStore = defineStore({
     getters: {
       getLogs: (state) => state.logs,
     },
+    sortByPoint (state) {
+      const sortable = [...state.rewards]
+      return sortable.sort((a, b) => {
+        return a.point - b.point
+      })
+    },
     actions: {
         async fetch () {
           this.logs = await logAPI.getAll()

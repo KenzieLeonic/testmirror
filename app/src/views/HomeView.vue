@@ -45,7 +45,7 @@
           </tr>
           </thead>
           <tbody v-for="stock in stocks" v-bind:key="stock.stockID">
-          <tr class="border-t" @click="navigate(`/stock/${stock.id}`)">
+          <tr class="border-t" @click="navigate(`/stock/${stock.stockID}`)">
             <th class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800"
                 scope="row">
               {{ stock.stockID }}

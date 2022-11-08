@@ -136,6 +136,7 @@ export default {
     try {
       await this.log_store.fetch()
       this.logs = this.log_store.getLogs
+      this.logs = this.logs.reverse()
     } catch (error) {
       this.error = error.message
     }
