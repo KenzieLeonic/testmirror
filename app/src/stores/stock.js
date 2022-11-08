@@ -19,6 +19,9 @@ export const useStockStore = defineStore({
         async fetch () {
           this.stocks = await stockAPI.getAll()
         },
+        async getById (id) {
+          this.stocks = await stockAPI.getById(id)
+        },
         async add (stock) {
           const response = await stockAPI.saveNew(stock)
           if (response.success) {

@@ -106,7 +106,14 @@ export const stockAPI = {
     return {
       success: false
     }
-  }
+  },
+  async getById (id) {
+    const response = await axiosInstance.get(`/stock/${id}`)
+    if (response.status == 200) {
+      return response.data
+    }
+    return []
+  },
 }
 
 export const logAPI = {

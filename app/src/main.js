@@ -12,7 +12,7 @@ import 'flowbite';
 const app = createApp(App)
 
 const axiosInstance = axios.create({
-    baseURL: 'http://localhost/api',
+    baseURL: 'http://localhost:8095/api',
 })
 
 
