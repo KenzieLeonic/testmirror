@@ -5,7 +5,7 @@
       <div class="flex items-center pb-4">
         <label class="p-8 pt-6 mr-5 text-xl" for="type">Item List: </label>
         <select id="type" class="uppercase bg-gray-100 rounded-lg w-18" name="type" v-model="selected">type
-          <option value="ID">ID</option>
+          <option value="id">ID</option>
           <option value="Name">Name</option>
         </select>
         <label class="mx-10" for="table-search"></label>
@@ -90,8 +90,9 @@ export default {
         this.stocks = this.stock_store.getStocks
       }
     },
-    async searchStock() {
-      if (this.selected == "ID") {
+    async searchStock(data) {
+      this.refreshStocks(data)
+      if (this.selected == "id") {
         this.stocks= this.stock_store.getStockById(this.search)
       }
       if (this.selected == "Name") {
