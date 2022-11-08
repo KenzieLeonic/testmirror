@@ -93,6 +93,10 @@
           </h3>
 
           <h3 class="float-left text-xl text-gray-50">
+            Inbound-Date
+          </h3>
+          <input v-model="InboundDate" type="text" class="bg-gray-100 rounded-lg">
+          <h3 class="float-left text-xl text-gray-50">
             Expire-Date
           </h3>
           <input v-model="expireDate" type="text" class="bg-gray-100 rounded-lg">
@@ -127,6 +131,10 @@
             Description
           </h3>
           <h3> </h3>
+          <h3 class="float-left text-xl text-gray-50">
+            Inbound-Date
+          </h3>
+          <input  type="text" class="bg-gray-100 rounded-lg">
           <h3 class="float-left text-xl text-gray-50">
             Expire-Date
           </h3>
@@ -171,6 +179,7 @@ export default {
       sortOption: 'default',
       count: 0,
       expireDate: '',
+      InboundDate: '',
       inbound:{
         type:'',
         productInDate: '',
@@ -220,7 +229,7 @@ export default {
 
       console.log("clickAddInbound")
       this.inbound.type = "inbound"
-      this.inbound.productInDate = "22/10/2022"
+      this.inbound.productInDate = this.InboundDate
       this.inbound.stock.quantity = this.count
       this.inbound.stock.itemID = this.selected.item.itemID
       this.inbound.stock.expire = this.expireDate

@@ -211,8 +211,8 @@ export default {
       console.log("clickAddOutbound")
 
        this.outbound.type = "outbound"
-      // this.outbound.productOutDate = this.selected.expire
-      this.outbound.productOutDate = "1/11/1111"
+      this.outbound.productOutDate = this.selected.expire
+      // this.outbound.productOutDate = "1/11/1111"
       this.outbound.IOQuantity = this.count
       this.outbound.itemID = this.selected.item.itemID
        this.outbound.userID = 1

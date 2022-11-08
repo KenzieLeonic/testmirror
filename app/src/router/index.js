@@ -15,6 +15,11 @@ const router = createRouter({
       component:() => import('../views/ShowItemView.vue')
     },
     {
+      path: '/log/:id',
+      name: 'log.show',
+      component:() => import('../views/history/ShowHistoryInfoView.vue')
+    },
+    {
       path: '/inbound',
       name: 'inbound',
       component: () => import('../views/InboundView.vue')

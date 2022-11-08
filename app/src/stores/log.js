@@ -30,6 +30,9 @@ export const useLogStore = defineStore({
           }
           return false
         },
+        async getById (id) {
+          this.logs = await logAPI.getById(id)
+        },
     
         delete (id) {
           this.logs = this.logs.filter((log) => log.id != id)

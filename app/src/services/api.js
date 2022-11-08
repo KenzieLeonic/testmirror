@@ -132,7 +132,14 @@ export const logAPI = {
     return {
       success: false
     }
-  }
+  },
+  async getById (id) {
+    const response = await axiosInstance.get(`/log/${id}`)
+    if (response.status == 200) {
+      return response.data
+    }
+    return []
+  },
 }
 
 export const locationAPI = {
