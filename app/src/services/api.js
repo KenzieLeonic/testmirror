@@ -31,7 +31,7 @@ if (token) {
 }
 
 const outboundAxiosInstance = axios.create({
-  baseURL: 'http://localhost:8092/api',
+  baseURL: 'http://localhost:8093/api',
   headers: {
     Authorization: `Bearer ${accessToken}`,
   }

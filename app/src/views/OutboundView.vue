@@ -198,16 +198,17 @@ export default {
       this.error = null
 
       console.log("clickAddOutbound")
-      this.inbound.type = "inbound"
-      this.inbound.productInDate = "22/10/2022"
-      this.inbound.stock.quantity = this.count
-      this.inbound.stock.itemID = this.selected.item.itemID
-      this.inbound.stock.expire = this.expireDate
-      this.inbound.userID = 1
 
+       this.outbound.type = "outbound"
+      // this.outbound.productOutDate = this.selected.expire
+      this.outbound.productOutDate = "1/11/1111"
+      this.outbound.IOQuantity = this.count
+      this.outbound.itemID = this.selected.item.itemID
+       this.outbound.userID = 1
+       
       try {
-        const inbound_id = await this.inbound_store.add(this.inbound)
-        if (inbound_id) {
+        const outbound_id = await this.outbound_store.add(this.outbound)
+        if (outbound_id) {
           console.log("add complete")
           // this.$router.push(`/`)
         }
