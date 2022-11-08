@@ -135,9 +135,10 @@
             Quantity
           </h3>
           <div class="text-gray-50">
-            <button v-on:click="increment" class="border-2 rounded-lg">increment</button>
-            <span class="mx-2">{{ count }}</span>
             <button v-on:click="decrement" class="border-2 rounded-lg">decrement</button>
+            <!-- <span class="mx-2">{{ count }}</span> -->
+            <input type="number" v-model="count" class="mx-2  text-black text-center overflow-hidden rounded-lg shadow bg-white border border-gray-300 ">
+            <button v-on:click="increment" class="border-2 rounded-lg">increment</button>
           </div>
           <button class="px-4 py-2 font-bold text-white rounded-lg bg hover:bg-[#10122e] bg-angelBaby-300"
                   style="align-items: center;">
