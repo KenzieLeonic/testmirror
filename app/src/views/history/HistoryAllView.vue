@@ -15,9 +15,9 @@
 
       <div class="flex items-center pb-0">
         <label class="p-8 pt-6 mr-5 text-lg" for="type">Select Item:</label>
-        <select id="type" class="uppercase bg-gray-100 rounded-lg w-18" name="type">type
-          <option value="ID">ID</option>
-          <option value="name">Name</option>
+        <select name="type" v-model="choose" id="type" class="uppercase bg-gray-100 rounded-lg w-18">type
+          <option value="id">ID</option>
+          <option value="Name">Name</option>
         </select>
         <label class="mx-10" for="table-search"></label>
         <div class="relative">
@@ -29,11 +29,11 @@
                 fill-rule="evenodd"></path>
             </svg>
           </div>
-          <input id="table-search"
+          <input id="table-search" v-model="search"
             class="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="Search for items" type="text">
         </div>
-        <button
+        <button v-on:click="searchStock"
           class="p-2.5 ml-2 text-sm font-medium text-white rounded-lg bg-angelBaby-300  border border-angelBaby-300 hover:bg-blue-800 focus:ring-3 focus:outline-none focus:ring-angelBaby-200"
           type="submit">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -48,13 +48,13 @@
         <div class="flex items-center mr-4">
           <input id="inline-checkbox"
             class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-            type="checkbox" value="">
+            type="checkbox" value="inbound" @click="selectInbound">
           <label class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300" for="inline-checkbox">Inbound</label>
         </div>
         <div class="flex items-center mr-4">
           <input id="inline-2-checkbox"
             class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-            type="checkbox" value="">
+            type="checkbox" value="outbound" @click="selectOutbound">
           <label class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
             for="inline-2-checkbox">Outbound</label>
         </div>
@@ -95,7 +95,8 @@
 </template>
 
 <script>
-import { useLogStore } from '@/stores/log.js'
+import {useLogStore} from '@/stores/log.js'
+
 export default {
   setup() {
     const log_store = useLogStore()
@@ -107,6 +108,8 @@ export default {
       title: "Log List",
       selected: null,
       logs: null,
+      search: '',
+      choose:'',
       error: null,
       sortOption: 'default',
       count: 0
@@ -118,6 +121,23 @@ export default {
         await this.log_store.fetch()
         this.logs = this.log_store.getLogs
       }
+    },
+    async searchStock(data){
+      this.refreshLogs(data)
+      if (this.choose == "id") {
+        this.logs= this.log_store.getLogById(this.search)
+      }
+      if (this.choose == "Name") {
+        this.logs = this.log_store.getLogByName(this.search)
+      }
+    },
+    async selectInbound(data){
+      this.refreshLogs(data)
+      this.logs = this.log_store.filterInbound()
+    },
+    async selectOutbound(data){
+      this.refreshLogs(data)
+      this.logs = this.log_store.filterOutbound()
     },
     logDetail(log) {
       this.selected = log
