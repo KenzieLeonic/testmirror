@@ -4,11 +4,11 @@
       <h1 class="pt-6 pl-8 text-xl">Inbound</h1>
       <div class="flex items-center pb-4">
         <label for="type" class="p-8 pt-6 mr-5 text-xl">Select Item:</label>
-        <select name="type" id="type" class="uppercase bg-gray-100 rounded-lg w-18">type
-          <option value="ID">ID</option>
-          <option value="name">Name</option>
+        <select name="type" v-model="choose" id="type" class="uppercase bg-gray-100 rounded-lg w-18">type
+          <option value="id">ID</option>
+          <option value="Name">Name</option>
         </select>
-        <label for="table-search" class="mx-10"></label>
+        <label for="table-search" class="mx-10" ></label>
         <div class="relative">
           <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
             <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true" fill="currentColor"
@@ -18,11 +18,11 @@
                     clip-rule="evenodd"></path>
             </svg>
           </div>
-          <input type="text" id="table-search"
+          <input type="text" id="table-search" v-model="search"
                  class="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                  placeholder="Search for items">
         </div>
-        <button type="submit"
+        <button type="submit" @click="searchStock"
                 class="p-2.5 ml-2 text-sm font-medium text-white rounded-lg bg-angelBaby-300  border border-angelBaby-300 hover:bg-blue-800 focus:ring-3 focus:outline-none focus:ring-angelBaby-200">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -49,19 +49,19 @@
             </tr>
             </thead>
             <tbody v-for="stock in stocks" v-bind:key="stock.stockID">
-            <tr 
+            <tr
                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <th @click="stockDetail(stock)" scope="row" class="py-4 px-10 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  {{ stock.item.itemID }}
+              <th @click="stockDetail(stock)" scope="row" class="py-4 px-10 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                {{ stock.item.itemID }}
 
-                </th>
-                <td @click="stockDetail(stock)" class="py-4 px-10">
-                  {{ stock.item.name }}
-                </td>
-                <td @click="stockDetail(stock)" class="py-4 px-10">
-                  {{ stock.item.description }}
-                </td>
-              </tr>
+              </th>
+              <td @click="stockDetail(stock)" class="py-4 px-10">
+                {{ stock.item.name }}
+              </td>
+              <td @click="stockDetail(stock)" class="py-4 px-10">
+                {{ stock.item.description }}
+              </td>
+            </tr>
             </tbody>
           </table>
         </div>
@@ -99,14 +99,14 @@
           <h3 class="float-left text-xl text-gray-50">
             Quantity
           </h3>
-          <div class="text-gray-50">
-            <button v-on:click="increment" class="border-2 rounded-lg">increment</button>
-            <span class="mx-2">{{ count }}</span>
-            <button v-on:click="decrement" class="border-2 rounded-lg">decrement</button>
+          <div class="text-white">
+            <button v-on:click="decrement" class="rounded-lg p-2  bg-red-500 hover:bg-red-600">-</button>
+            <input type="number" v-model="count" class="mx-2 w-20 text-black text-center overflow-hidden rounded-lg shadow bg-white border border-gray-300 ">
+            <button v-on:click="increment" class="rounded-lg p-2  bg-green-500 hover:bg-green-600">+</button>
           </div>
           <button @click="addInbound" class="px-4 py-2 font-bold text-white rounded-lg bg hover:bg-[#10122e] bg-angelBaby-300"
                   style="align-items: center;">
-                  Submit
+            Submit
           </button>
         </div>
 
@@ -134,11 +134,10 @@
           <h3 class="float-left text-xl text-gray-50">
             Quantity
           </h3>
-          <div class="text-gray-50">
-            <button v-on:click="decrement" class="border-2 rounded-lg">decrement</button>
-            <!-- <span class="mx-2">{{ count }}</span> -->
-            <input type="number" v-model="count" class="mx-2  text-black text-center overflow-hidden rounded-lg shadow bg-white border border-gray-300 ">
-            <button v-on:click="increment" class="border-2 rounded-lg">increment</button>
+          <div class="text-white">
+            <button v-on:click="decrement" class="rounded-lg p-2  bg-red-500 hover:bg-red-600">-</button>
+            <input type="number" v-model="count" class="mx-2 w-20 text-black text-center overflow-hidden rounded-lg shadow bg-white border border-gray-300 ">
+            <button v-on:click="increment" class="rounded-lg p-2  bg-green-500 hover:bg-green-600">+</button>
           </div>
           <button class="px-4 py-2 font-bold text-white rounded-lg bg hover:bg-[#10122e] bg-angelBaby-300"
                   style="align-items: center;">
@@ -164,6 +163,8 @@ export default {
     return {
       title: "stock List",
       selected: null,
+      choose:"",
+      search:"",
       stocks: null,
       inbounds: '',
       error: null,
@@ -194,6 +195,15 @@ export default {
       if (data.refresh) {
         await this.inbound_store.fetch()
         this.inbounds = this.inbound_store.getInbounds
+      }
+    },
+    async searchStock(data){
+      this.refreshStocks(data)
+      if (this.choose == "id") {
+        this.stocks= this.stock_store.getStockById(this.search)
+      }
+      if (this.choose == "Name") {
+        this.stocks = this.stock_store.getStockByName(this.search)
       }
     },
     stockDetail(stock) {

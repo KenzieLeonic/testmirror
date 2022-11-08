@@ -11,11 +11,11 @@ export const useStockStore = defineStore({
     getters: {
         getStocks: (state) => state.stocks,
 
-        getStockById: (state) => (stockID) => {
-            return state.stocks.find(stock => stock.stockID === stockID)
+        getStockById: (state) => (id) => {
+            return state.stocks.filter(stock => stock.stockID.toString() === id)
         },
         getStockByName: (state) => (name) => {
-            return state.stocks.find(stock => stock.item.name === name)
+            return state.stocks.filter(stock => stock.item.name === name)
         },
     },
     actions: {
