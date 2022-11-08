@@ -25,7 +25,7 @@
         </div>
         <button
             class="p-2.5 ml-2 text-sm font-medium text-white rounded-lg bg-angelBaby-300  border border-angelBaby-300 hover:bg-blue-800 focus:ring-3 focus:outline-none focus:ring-angelBaby-200"
-            type="submit" @click="searchProduct">
+            type="submit" >
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round"
                   stroke-width="2"></path>
@@ -39,23 +39,21 @@
           <tr class="border-t">
             <th class="py-3 px-6 bg-gray-50 dark:bg-gray-800" scope="col">Item-ID</th>
             <th class="py-3 px-6 bg-white" scope="col">Item Name</th>
-            <th class="py-3 px-6 bg-gray-50 dark:bg-gray-800" scope="col">Inbound-Date</th>
-            <th class="py-3 px-6  bg-white" scope="col">Outbound-Date</th>
+            <th class="py-3 px-6 bg-gray-50 dark:bg-gray-800" scope="col">Supplier-Name</th>
             <th class="py-3 px-6 bg-gray-50 dark:bg-gray-800" scope="col">Expire-Date</th>
             <th class="py-3 px-6  bg-white" scope="col">Quantity</th>
           </tr>
           </thead>
-          <tbody v-for="product in products" :key="product.itemID">
-          <tr class="border-t" @click="navigate(`/${product.id}`)">
+          <tbody v-for="stock in stocks" v-bind:key="stock.stockID">
+          <tr class="border-t" @click="navigate(`/${stock.stockID}`)">
             <th class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800"
                 scope="row">
-              {{ product.itemID }}
+              {{ stock.stockID }}
             </th>
-            <td class="py-3 px-6 bg-white">{{ product.name }}</td>
-            <td class="py-3 px-6 bg-gray-50 dark:bg-gray-800">NULL</td>
-            <td class="py-3 px-6 bg-white">NULL</td>
-            <td class="py-3 px-6 bg-gray-50 dark:bg-gray-800">NULL</td>
-            <td class="py-3 px-6 bg-white">NULL</td>
+            <td class="py-3 px-6 bg-white">{{ stock.item.name }}</td>
+            <td class="py-3 px-6 bg-gray-50 dark:bg-gray-800">{{ stock.item.supplierName }}</td>
+            <td class="py-3 px-6 bg-white">{{stock.expire}}</td>
+            <td class="py-3 px-6 bg-gray-50 dark:bg-gray-800">{{stock.quantity}}</td>
           </tr>
           </tbody>
         </table>
@@ -67,40 +65,30 @@
 </template>
 
 <script>
-import {useProductStore} from '@/stores/product.js'
+import {useStockStore} from '@/stores/stock.js'
 
 export default {
   setup() {
-    const product_store = useProductStore()
-    return {product_store}
+    const stock_store = useStockStore()
+    return {stock_store}
   },
 
   data() {
     return {
-      title: "Product List",
+      title: "Stock List",
       selected: "Name",
       search: "",
-      products: null,
-      productSearch: '',
+      stocks: null,
       error: null,
     }
   },
   watch: {},
   methods: {
-    async refreshProducts(data) {
+    async refreshStocks(data) {
       if (data.refresh) {
-        await this.product_store.fetch()
-        this.products = this.product_store.getProducts
+        await this.stock_store.fetch()
+        this.stocks = this.stock_store.getStocks
       }
-    },
-    searchProduct() {
-      if (this.selected == "ID") {
-        this.productSearch = this.product_store.getProductById(this.search)
-      }
-      if (this.selected == "Name") {
-        this.productSearch = this.product_store.getProductByName(this.search)
-      }
-
     },
     navigate(link){
       this.$router.push(link)
@@ -111,8 +99,8 @@ export default {
     this.error = null
 
     try {
-      await this.product_store.fetch()
-      this.products = this.product_store.getProducts
+      await this.stock_store.fetch()
+      this.stocks = this.stock_store.getStocks
     } catch (error) {
       this.error = error.message
     }
