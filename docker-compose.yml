@@ -7,7 +7,7 @@ services:
     expose:
       - 3000
     ports:
-      - 3000:3000
+      - 8091:3000
     volumes:
       - ./:/var/www/html
     tty: true
