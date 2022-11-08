@@ -6,27 +6,18 @@
         <RouterLink to="/" class="text-white text-2xl font-bold border-red-600">Angel Baby</RouterLink>
         <RouterLink to="/inbound" @click="toggle" class="text-white  text-2xl font-bold focus:border-b-2 border-red-600"> นำของเข้า</RouterLink>
         <RouterLink to="/outbound" class="text-white text-2xl font-bold focus:border-b-2 border-red-600">นำของออก</RouterLink>
-      <RouterLink to="/history" class="text-white text-2xl font-bold focus:border-b-2 border-red-600">ประวัติการนำเข้า-ออก</RouterLink>
+        <RouterLink to="/history" class="text-white text-2xl font-bold focus:border-b-2 border-red-600">ประวัติการนำเข้า-ออก</RouterLink>
         <div v-if="auth == null" class="">
             <a href="/login" class="text-white text-2xl font-bold focus:border-b-2 border-red-600">เข้าสู่ระบบ</a>
         </div>
-        <div v-else  class="dropdown">
-        <div class="justify-between items-center w-full md:flex md:w-auto md:order-1 flex">
-          <div class="bg-white rounded-xl">
-            <a class="container flex flex-wrap justify-between items-center">
-              <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" class = "ml-3" style="height: 30px; width: 30px; ">
-              <div class="dropdown-content w-32 rounded-lg">
-                <button class="dropbtn flex items-center mr-2 mb-1 p-2 rounded-lg">
-                  <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" style="height: 30px; width: 30px; ">
-                  <p class="mx-2">{{ auth }}</p>
-                </button>
-                <div class="dropdown-content w-32 rounded-lg">
-                  <a href="/logout" class="rounded-lg">ออกจากระบบ</a>
-                </div>
-              </div>
-            </a>
-          </div>
-        </div>
+        <div v-else class="dropdown">
+            <button class="dropbtn flex items-center mr-2 mb-1 p-2 rounded-lg">
+                <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" style="height: 30px; width: 30px; ">
+                <p class="mx-2">{{ auth }}</p>
+            </button>
+            <div class="dropdown-content w-32 rounded-lg">
+                <a href="/logout" class="rounded-lg">ออกจากระบบ</a>
+            </div>
         </div>
       </div>
     </nav>

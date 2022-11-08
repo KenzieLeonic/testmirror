@@ -5,7 +5,7 @@
       <div class="flex items-center pb-4">
         <label class="p-8 pt-6 mr-5 text-xl" for="type">Item List: </label>
         <select id="type" class="uppercase bg-gray-100 rounded-lg w-18" name="type" v-model="selected">type
-          <option value="id">ID</option>
+          <option value="id" selected>ID</option>
           <option value="Name">Name</option>
         </select>
         <label class="mx-10" for="table-search"></label>
@@ -76,7 +76,7 @@ export default {
   data() {
     return {
       title: "Stock List",
-      selected: "",
+      selected: 'id',
       search: "",
       stocks: null,
       error: null,

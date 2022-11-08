@@ -36,17 +36,17 @@
         <div class="rounded-lg overflow-y-auto h-full relative">
           <table class="w-2/3 rounded-xl text-sm text-left text-gray-500 dark:text-gray-400 table-auto ml-10 ">
             <thead class="text-lg text-gray-700 uppercase bg-gray-50">
-            <tr>
-              <th scope="col" class="py-3 px-6">
-                ItemID
-              </th>
-              <th scope="col" class="py-3 px-6">
-                Item Name
-              </th>
-              <th scope="col" class="py-3 px-6">
-                Description
-              </th>
-            </tr>
+              <tr>
+                <th scope="col" class="py-3 px-6">
+                  ItemID
+                </th>
+                <th scope="col" class="py-3 px-6">
+                  Item Name
+                </th>
+                <th scope="col" class="py-3 px-6">
+                  Description
+                </th>
+              </tr>
             </thead>
             <tbody v-for="stock in stocks" v-bind:key="stock.stockID">
             <tr 
@@ -66,18 +66,12 @@
           </table>
         </div>
 
-        <div v-if="selected != null" class="grid w-1/2 h-full grid-cols-2 grid-rows-6 gap-6 p-3 my-20 border-2 x-10 bg-angelBaby-200 right-2 ">
+        <div v-if="selected != null" class="grid w-1/2 h-full grid-cols-2 gap-6 p-3 my-20 border-2 x-10 bg-angelBaby-200 right-2 ">
           <h3 class="float-left text-xl text-gray-50">
             Stock ID
           </h3>
           <h3 class="float-left text-xl text-gray-50">
             {{selected.stockID}}
-          </h3>
-          <h3 class="float-left text-xl text-gray-50">
-            Item ID
-          </h3>
-          <h3 class="float-left text-xl text-gray-50">
-            {{selected.item.itemID}}
           </h3>
           <h3 class="float-left text-xl text-gray-50">
             Item Name
@@ -101,18 +95,14 @@
             <button v-on:click="increment" class="rounded-lg p-2  bg-green-500 hover:bg-green-600">+</button>
           </div>
           <button @click="addOutbound" class="px-4 py-2 font-bold text-white rounded-lg bg hover:bg-[#10122e] bg-angelBaby-300"
-                  style="align-items: center;">
-                  Submit
+                  style="align-items: center;" v-on:click="toggleModal()">
+                  Outbound
           </button>
         </div>
 
-        <div v-else class="grid w-1/2 h-full grid-cols-2 grid-rows-6 gap-6 p-3 my-20 border-2 x-10 bg-angelBaby-200 right-2 ">
+        <div v-else class="grid w-1/2 h-full grid-cols-2 gap-6 p-3 my-20 border-2 x-10 bg-angelBaby-200 right-2 ">
           <h3 class="float-left text-xl text-gray-50">
             Stock ID
-          </h3>
-          <h3> </h3>
-          <h3 class="float-left text-xl text-gray-50">
-            Item ID
           </h3>
           <h3> </h3>
           <h3 class="float-left text-xl text-gray-50">
@@ -133,7 +123,7 @@
           </div>
           <button class="px-4 py-2 font-bold text-white rounded-lg bg hover:bg-[#10122e] bg-angelBaby-300"
                   style="align-items: center;">
-            Submit
+            Outbound
           </button>
         </div>
 
@@ -144,6 +134,7 @@
 <script>
 import {useStockStore} from '@/stores/stock.js'
 import { useOutboundStore } from '@/stores/outbound.js'
+import moment from 'moment'
 export default {
   setup() {
     const stock_store = useStockStore()
@@ -175,6 +166,9 @@ export default {
   },
   watch: {},
   methods: {
+    toggleModal: function () {
+      this.showModal = !this.showModal;
+    },
     async refreshStocks(data) {
       if (data.refresh) {
         await this.stock_store.fetch()
@@ -209,19 +203,24 @@ export default {
       this.error = null
 
       console.log("clickAddOutbound")
+      // var date = new Date(this.custom_order.finish_date).toLocaleDateString().split("/")
+      // var year = String(date[2]).padStart(4, '0')
+      // var day = String(date[1]).padStart(2, '0')
+      // var month = String(date[0]).padStart(2, '0')
+      // var formatted_date = year + "-" + month + "-" + day
 
-       this.outbound.type = "outbound"
-      this.outbound.productOutDate = this.selected.expire
+      this.outbound.type = "outbound"
+      this.outbound.productOutDate = moment().add(7, "hours").format('DD/MM/YYYY')
       // this.outbound.productOutDate = "1/11/1111"
       this.outbound.IOQuantity = this.count
       this.outbound.itemID = this.selected.item.itemID
-       this.outbound.userID = 1
+       this.outbound.userID = localStorage.getItem("userId")
 
       try {
         const outbound_id = await this.outbound_store.add(this.outbound)
         if (outbound_id) {
           console.log("add complete")
-          // this.$router.push(`/`)
+          this.$router.push('/history')
         }
       } catch (error) {
         this.error = error.message
@@ -246,12 +245,17 @@ export default {
       this.error = error.message
     }
   }
-
 }
 </script>
 
 <style scoped>
 body {
   background-color: #E8F0FF;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 </style>

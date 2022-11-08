@@ -17,10 +17,10 @@ export const useOutboundStore = defineStore({
         },
         async add (outbound) {
           const response = await outboundAPI.saveNew(outbound)
-          if (response.success) {
-            const outbound_id = response.outbound_id
-            this.outbounds.push({ ...outbound })
-            return outbound_id
+          if (response) {
+            const outbound_id = response.true
+            // this.outbounds.push({ ...outbound })
+            return true
           }
           return false
         },

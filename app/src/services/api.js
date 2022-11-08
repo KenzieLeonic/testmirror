@@ -177,26 +177,24 @@ export const inboundAPI = {
   },
   async saveNew (inbound) {
     const response = await inboundAxiosInstance.post('/inbound', inbound)
-    if (response.status == 201) {
+    if (response.data != "No locations available") {
       return response.data
     }
-    return {
-      success: false
-    }
+    return false
   },
 }
 
 export const outboundAPI = {
   async getAll () {
     const response = await outboundAxiosInstance.get('/outbound')
-    if (response.status == 200) {
-      return response.data
+    if (response.data != "{}") {
+      return true
     }
     return []
   },
   async saveNew (outbound) {
     const response = await outboundAxiosInstance.post('/outbound', outbound)
-    if (response.status == 201) {
+    if (response.status == 200) {
       return response.data
     }
     return {

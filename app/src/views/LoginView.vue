@@ -26,7 +26,7 @@
                     fill-rule="evenodd"/>
             </svg>
             <input v-model="password" class="pl-2 border-none outline-none" placeholder="Password" required
-                   type="text"/>
+                   type="password"/>
           </div>
           <span class="text-sm ml-auto mt-1.5 text-blue-500 hover:border-b-2 border-blue-500 cursor-pointer">Forgot Password ?</span>
           <button :class="disabledButton ? 'bg-gray-400 ': 'bg-angelBaby-300'" :disabled="disabledButton"
