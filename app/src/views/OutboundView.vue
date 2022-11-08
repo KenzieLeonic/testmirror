@@ -48,18 +48,18 @@
               </th>
             </tr>
             </thead>
-            <tbody v-for="log in logs" v-bind:key="log.logID">
-            <tr v-if="log.type == 'outbound'"
+            <tbody v-for="stock in stocks" v-bind:key="stock.stockID">
+            <tr 
                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <th @click="logDetail(log)" scope="row" class="py-4 px-10 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  {{ log.stock.item.itemID }}
+                <th @click="stockDetail(stock)" scope="row" class="py-4 px-10 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  {{ stock.item.itemID }}
 
                 </th>
-                <td @click="logDetail(log)" class="py-4 px-10">
-                  {{ log.stock.item.name }}
+                <td @click="stockDetail(stock)" class="py-4 px-10">
+                  {{ stock.item.name }}
                 </td>
-                <td @click="logDetail(log)" class="py-4 px-10">
-                  {{ log.stock.item.description }}
+                <td @click="stockDetail(stock)" class="py-4 px-10">
+                  {{ stock.item.description }}
                 </td>
               </tr>
             </tbody>
@@ -71,26 +71,27 @@
             Stock ID
           </h3>
           <h3 class="float-left text-xl text-gray-50">
-            {{selected.stock.stockID}}
+            {{selected.stockID}}
           </h3>
           <h3 class="float-left text-xl text-gray-50">
             Item ID
           </h3>
           <h3 class="float-left text-xl text-gray-50">
-            {{selected.stock.item.itemID}}
+            {{selected.item.itemID}}
           </h3>
           <h3 class="float-left text-xl text-gray-50">
             Item Name
           </h3>
           <h3 class="float-left text-xl text-gray-50">
-            {{selected.stock.item.name}}
+            {{selected.item.name}}
           </h3>
           <h3 class="float-left text-xl text-gray-50">
             Description
           </h3>
           <h3 class="float-left text-xl text-gray-50">
-            {{selected.stock.item.description}}
+            {{selected.item.description}}
           </h3>
+
           <h3 class="float-left text-xl text-gray-50">
             Quantity
           </h3>
@@ -99,7 +100,7 @@
             <span class="mx-2">{{ count }}</span>
             <button v-on:click="decrement" class="border-2 rounded-lg">decrement</button>
           </div>
-          <button class="px-4 py-2 font-bold text-white rounded-lg bg hover:bg-[#10122e] bg-angelBaby-300"
+          <button @click="addOutbound" class="px-4 py-2 font-bold text-white rounded-lg bg hover:bg-[#10122e] bg-angelBaby-300"
                   style="align-items: center;">
                   Submit
           </button>
@@ -122,7 +123,6 @@
             Description
           </h3>
           <h3> </h3>
-
           <h3 class="float-left text-xl text-gray-50">
             Quantity
           </h3>
@@ -142,39 +142,79 @@
   </div>
 </template>
 <script>
-import { useLogStore } from '@/stores/log.js'
+import {useStockStore} from '@/stores/stock.js'
+import { useOutboundStore } from '@/stores/outbound.js'
 export default {
   setup() {
-    const log_store = useLogStore()
-    return { log_store }
+    const stock_store = useStockStore()
+    const outbound_store = useOutboundStore()
+    return { stock_store, outbound_store }
   },
 
   data() {
     return {
-      title: "Log List",
+      title: "stock List",
       selected: null,
-      logs: null,
+      stocks: null,
+      outbounds: '',
       error: null,
       sortOption: 'default',
-      count: 0
+      count: 0,
+      expireDate: '',
+      outbound:{
+        type: '',
+        productOutDate: '',
+        IOQuantity: '',
+        itemID: '',
+        userID: '',
+      }
+
     }
   },
   watch: {},
   methods: {
-    async refreshLogs(data) {
+    async refreshStocks(data) {
       if (data.refresh) {
-        await this.log_store.fetch()
-        this.logs = this.log_store.getLogs
+        await this.stock_store.fetch()
+        this.stocks = this.stock_store.getStocks
       }
     },
-    logDetail(log) {
-      this.selected = log
+    async refreshOutbounds(data) {
+      if (data.refresh) {
+        await this.outbound_store.fetch()
+        this.outbounds = this.outbound_store.getOutbounds
+      }
+    },
+    stockDetail(stock) {
+      this.selected = stock
     },
     increment() {
       this.count++;
     },
     decrement() {
       this.count--;
+    },
+    async addOutbound(){
+      this.error = null
+
+      console.log("clickAddOutbound")
+      this.inbound.type = "inbound"
+      this.inbound.productInDate = "22/10/2022"
+      this.inbound.stock.quantity = this.count
+      this.inbound.stock.itemID = this.selected.item.itemID
+      this.inbound.stock.expire = this.expireDate
+      this.inbound.userID = 1
+
+      try {
+        const inbound_id = await this.inbound_store.add(this.inbound)
+        if (inbound_id) {
+          console.log("add complete")
+          // this.$router.push(`/`)
+        }
+      } catch (error) {
+        this.error = error.message
+        console.error(error)
+      }
     }
   },
   async mounted() {
@@ -182,8 +222,11 @@ export default {
     this.error = null
 
     try {
-      await this.log_store.fetch()
-      this.logs = this.log_store.getLogs
+      await this.stock_store.fetch()
+      this.stocks = this.stock_store.getStocks
+
+      await this.outbound_store.fetch()
+      this.outbounds = this.outbound_store.getOutbounds
     } catch (error) {
       this.error = error.message
     }
