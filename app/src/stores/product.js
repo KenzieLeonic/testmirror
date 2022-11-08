@@ -12,11 +12,12 @@ export const useProductStore = defineStore({
       getProducts: (state) => state.products,
   
       getProductById: (state) => (itemID) => {
-        return state.products.find(product => product.itemID === itemID)
+        return state.products.filter(product => product.itemID === itemID)
       },
       getProductByName: (state) => (name) => {
-        return state.products.find(product => product.name === name)
+        return state.products.filter(product => product.name === name)
       },
+
     },
     actions: {
         async fetch () {

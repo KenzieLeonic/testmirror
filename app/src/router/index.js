@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import {useAuth} from '@/stores/auth.js'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -9,8 +10,8 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/show',
-      name: 'home.show',
+      path: '/product/:id',
+      name: 'products.show',
       component:() => import('../views/ShowItemView.vue')
     },
     {
@@ -39,5 +40,19 @@ const router = createRouter({
       component: () =>  import('../views/TestView.vue')
     },
   ]
+
 });
+router.beforeEach(async (to, from) => {
+  const store = useAuth()
+  if (
+      // make sure the user is authenticated
+      !store.isAuthen && // CHANGE
+      // ❗️ Avoid an infinite redirect
+      to.name !== 'login'
+  ) {
+    // redirect the user to the login page
+    return { name: 'login' }
+  }
+})
+
 export default router

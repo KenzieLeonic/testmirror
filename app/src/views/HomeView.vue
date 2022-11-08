@@ -4,10 +4,9 @@
       <h1 class="pl-8 pt-6 text-xl">Home</h1>
       <div class="flex items-center pb-4">
         <label class="p-8 pt-6 mr-5 text-xl" for="type">Item List: </label>
-        <select id="type" class="uppercase bg-gray-100 rounded-lg w-18" name="type">type
+        <select id="type" class="uppercase bg-gray-100 rounded-lg w-18" name="type" v-model="selected">type
           <option value="ID">ID</option>
-          <option value="name">Name</option>
-          <option value="quantity">Quantity</option>
+          <option value="Name">Name</option>
         </select>
         <label class="mx-10" for="table-search"></label>
         <div class="relative">
@@ -19,14 +18,14 @@
                     fill-rule="evenodd"></path>
             </svg>
           </div>
-          <input id="table-search"
+          <input id="table-search" v-model="search"
                  class="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                  placeholder="Search for items"
                  type="text">
         </div>
         <button
             class="p-2.5 ml-2 text-sm font-medium text-white rounded-lg bg-angelBaby-300  border border-angelBaby-300 hover:bg-blue-800 focus:ring-3 focus:outline-none focus:ring-angelBaby-200"
-            type="submit">
+            type="submit" @click="searchProduct">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round"
                   stroke-width="2"></path>
@@ -47,7 +46,7 @@
           </tr>
           </thead>
           <tbody v-for="product in products" :key="product.itemID">
-          <tr :url="`/${product.id}`" class="border-t" @click:row="selectedItem(item)">
+          <tr class="border-t" @click="navigate(`/${product.id}`)">
             <th class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800"
                 scope="row">
               {{ product.itemID }}
@@ -101,6 +100,9 @@ export default {
         this.products = this.product_store.getProductByName(this.search)
       }
 
+    },
+    navigate(link){
+      this.$router.push(link)
     },
   },
   async mounted() {
