@@ -10,6 +10,18 @@ export const useLogStore = defineStore({
     },
     getters: {
       getLogs: (state) => state.logs,
+        getLogById: (state) => (id) => {
+            return state.logs.filter(log => log.stock.stockID .toString() === id)
+        },
+        getLogByName: (state) => (name) => {
+            return state.logs.filter(log => log.stock.item.name === name)
+        },
+        filterInbound: (state) => {
+            return state.stocks.find(log => log.type === "inbound")
+        },
+        filterOutbound: (state) => {
+            return state.stocks.find(log => log.type === "outbound")
+        },
     },
     sortByPoint (state) {
       const sortable = [...state.rewards]
