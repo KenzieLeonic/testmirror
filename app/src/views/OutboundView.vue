@@ -1,0 +1,261 @@
+<template>
+  <div class="min-h-screen bg-angelBaby-100">
+    <div class="mx-auto font-mono text-gray-700 max-w-7xl">
+      <h1 class="pt-6 pl-8 text-xl">Outbound</h1>
+      <div class="flex items-center pb-4">
+        <label for="type" class="p-8 pt-6 mr-5 text-xl">Select Item:</label>
+        <select name="type" v-model="choose" id="type" class="uppercase bg-gray-100 rounded-lg w-18">type
+          <option value="id">ID</option>
+          <option value="Name">Name</option>
+        </select>
+        <label for="table-search" class="mx-10"></label>
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+            <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true" fill="currentColor"
+                 viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd"
+                    d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                    clip-rule="evenodd"></path>
+            </svg>
+          </div>
+          <input type="text" id="table-search" v-model="search"
+                 class="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                 placeholder="Search for items">
+        </div>
+        <button type="submit" v-on:click="searchStock"
+                class="p-2.5 ml-2 text-sm font-medium text-white rounded-lg bg-angelBaby-300  border border-angelBaby-300 hover:bg-blue-800 focus:ring-3 focus:outline-none focus:ring-angelBaby-200">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+          <span class="sr-only">Search</span>
+        </button>
+      </div>
+      <div style="display: flex; justify-content: space-around">
+
+        <div class="rounded-lg overflow-y-auto h-full relative">
+          <table class="w-2/3 rounded-xl text-sm text-left text-gray-500 dark:text-gray-400 table-auto ml-10 ">
+            <thead class="text-lg text-gray-700 uppercase bg-gray-50">
+              <tr>
+                <th scope="col" class="py-3 px-6">
+                  ItemID
+                </th>
+                <th scope="col" class="py-3 px-6">
+                  Item Name
+                </th>
+                <th scope="col" class="py-3 px-6">
+                  Description
+                </th>
+              </tr>
+            </thead>
+            <tbody v-for="stock in stocks" v-bind:key="stock.stockID">
+            <tr 
+                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                <th @click="stockDetail(stock)" scope="row" class="py-4 px-10 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  {{ stock.item.itemID }}
+
+                </th>
+                <td @click="stockDetail(stock)" class="py-4 px-10">
+                  {{ stock.item.name }}
+                </td>
+                <td @click="stockDetail(stock)" class="py-4 px-10">
+                  {{ stock.item.description }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div v-if="selected != null" class="grid w-1/2 h-full grid-cols-2 gap-6 p-3 my-20 border-2 x-10 bg-angelBaby-200 right-2 ">
+          <h3 class="float-left text-xl text-gray-50">
+            Stock ID
+          </h3>
+          <h3 class="float-left text-xl text-gray-50">
+            {{selected.stockID}}
+          </h3>
+          <h3 class="float-left text-xl text-gray-50">
+            Item Name
+          </h3>
+          <h3 class="float-left text-xl text-gray-50">
+            {{selected.item.name}}
+          </h3>
+          <h3 class="float-left text-xl text-gray-50">
+            Description
+          </h3>
+          <h3 class="float-left text-xl text-gray-50">
+            {{selected.item.description}}
+          </h3>
+
+          <h3 class="float-left text-xl text-gray-50">
+            Quantity
+          </h3>
+          <div class="text-white">
+            <button v-on:click="decrement" class="rounded-lg p-2  bg-red-500 hover:bg-red-600">-</button>
+            <input type="number" v-model="count" class="mx-2 w-20 text-black text-center overflow-hidden rounded-lg shadow bg-white border border-gray-300 ">
+            <button v-on:click="increment" class="rounded-lg p-2  bg-green-500 hover:bg-green-600">+</button>
+          </div>
+          <button @click="addOutbound" class="px-4 py-2 font-bold text-white rounded-lg bg hover:bg-[#10122e] bg-angelBaby-300"
+                  style="align-items: center;" v-on:click="toggleModal()">
+                  Outbound
+          </button>
+        </div>
+
+        <div v-else class="grid w-1/2 h-full grid-cols-2 gap-6 p-3 my-20 border-2 x-10 bg-angelBaby-200 right-2 ">
+          <h3 class="float-left text-xl text-gray-50">
+            Stock ID
+          </h3>
+          <h3> </h3>
+          <h3 class="float-left text-xl text-gray-50">
+            Item Name
+          </h3>
+          <h3> </h3>
+          <h3 class="float-left text-xl text-gray-50">
+            Description
+          </h3>
+          <h3> </h3>
+          <h3 class="float-left text-xl text-gray-50">
+            Quantity
+          </h3>
+          <div class="text-white">
+            <button v-on:click="decrement" class="rounded-lg p-2  bg-red-500 hover:bg-red-600">-</button>
+            <input type="number" v-model="count" class="mx-2 w-20 text-black text-center overflow-hidden rounded-lg shadow bg-white border border-gray-300 ">
+            <button v-on:click="increment" class="rounded-lg p-2  bg-green-500 hover:bg-green-600">+</button>
+          </div>
+          <button class="px-4 py-2 font-bold text-white rounded-lg bg hover:bg-[#10122e] bg-angelBaby-300"
+                  style="align-items: center;">
+            Outbound
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+import {useStockStore} from '@/stores/stock.js'
+import { useOutboundStore } from '@/stores/outbound.js'
+import moment from 'moment'
+export default {
+  setup() {
+    const stock_store = useStockStore()
+    const outbound_store = useOutboundStore()
+    return { stock_store, outbound_store }
+  },
+
+  data() {
+    return {
+      title: "stock List",
+      choose:"",
+      search:"",
+      selected: null,
+      stocks: null,
+      outbounds: '',
+      error: null,
+      sortOption: 'default',
+      count: 0,
+      expireDate: '',
+      outbound:{
+        type: '',
+        productOutDate: '',
+        IOQuantity: '',
+        itemID: '',
+        userID: '',
+      }
+
+    }
+  },
+  watch: {},
+  methods: {
+    toggleModal: function () {
+      this.showModal = !this.showModal;
+    },
+    async refreshStocks(data) {
+      if (data.refresh) {
+        await this.stock_store.fetch()
+        this.stocks = this.stock_store.getStocks
+      }
+    },
+    async refreshOutbounds(data) {
+      if (data.refresh) {
+        await this.outbound_store.fetch()
+        this.outbounds = this.outbound_store.getOutbounds
+      }
+    },
+    async searchStock(data){
+      this.refreshStocks(data)
+      if (this.choose == "id") {
+        this.stocks= this.stock_store.getStockById(this.search)
+      }
+      if (this.choose == "Name") {
+        this.stocks = this.stock_store.getStockByName(this.search)
+      }
+    },
+    stockDetail(stock) {
+      this.selected = stock
+    },
+    increment() {
+      this.count++;
+    },
+    decrement() {
+      if(this.count >= 1){this.count--;}
+    },
+    async addOutbound(){
+      this.error = null
+
+      console.log("clickAddOutbound")
+      // var date = new Date(this.custom_order.finish_date).toLocaleDateString().split("/")
+      // var year = String(date[2]).padStart(4, '0')
+      // var day = String(date[1]).padStart(2, '0')
+      // var month = String(date[0]).padStart(2, '0')
+      // var formatted_date = year + "-" + month + "-" + day
+
+      this.outbound.type = "outbound"
+      this.outbound.productOutDate = moment().add(7, "hours").format('DD/MM/YYYY')
+      // this.outbound.productOutDate = "1/11/1111"
+      this.outbound.IOQuantity = this.count
+      this.outbound.itemID = this.selected.item.itemID
+       this.outbound.userID = localStorage.getItem("userId")
+
+      try {
+        const outbound_id = await this.outbound_store.add(this.outbound)
+        if (outbound_id) {
+          console.log("add complete")
+          this.$router.push('/history')
+        }
+      } catch (error) {
+        this.error = error.message
+        console.error(error)
+      }
+    }
+  },
+  async mounted() {
+    console.log("mounted")
+    if (localStorage.getItem("login_success") == "false") {
+      this.$router.push('/login')
+    }
+    this.error = null
+
+    try {
+      await this.stock_store.fetch()
+      this.stocks = this.stock_store.getStocks
+
+      await this.outbound_store.fetch()
+      this.outbounds = this.outbound_store.getOutbounds
+    } catch (error) {
+      this.error = error.message
+    }
+  }
+}
+</script>
+
+<style scoped>
+body {
+  background-color: #E8F0FF;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+</style>
