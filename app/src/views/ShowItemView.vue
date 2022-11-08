@@ -1,6 +1,6 @@
 <template>
   <div class="min-h-screen bg-angelBaby-100">
-    <div class="mx-auto font-mono text-gray-700 max-w-7xl" v-if="product">
+    <div class="mx-auto font-mono text-gray-700 max-w-7xl" >
       <BackButton class="my-20" />
       <h1 class="pt-6 pl-8 text-xl">Show Item</h1>
       <div class="pl-8 pt-3">
