@@ -84,7 +84,7 @@
               <td @click="logDetail(log)" class="py-3 px-6 bg-gray-50 dark:bg-gray-800">{{ log.totalQuantity}}</td>
               <td @click="logDetail(log)" class="py-3 px-6 bg-white">{{log.user.username}}</td>
               <td @click="logDetail(log)" class="py-3 px-6 bg-gray-50 dark:bg-gray-800">
-                <button @click="logDetail(log)" class="px-2 py-1 border rounded-xl">แก้ไข</button>
+                <button class="px-2 py-1 border rounded-xl bg-angelBaby-300 text-white shadow-lg">Info</button>
               </td>
             </tr>
           </tbody>

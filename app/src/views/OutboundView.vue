@@ -95,12 +95,10 @@
           <h3 class="float-left text-xl text-gray-50">
             Quantity
           </h3>
-          <div class="text-gray-50">
-            <button v-on:click="increment" class="border-2 rounded-lg">increment</button>
-            <!-- <span class="mx-2">{{ count }}</span> -->
-            <input type="number" v-model="count"
-            class="text-center w-20 overflow-hidden rounded-lg shadow bg-white border border-gray-300 py-3 mr-2">
-            <button v-on:click="decrement" class="border-2 rounded-lg">decrement</button>
+          <div class="text-white">
+            <button v-on:click="decrement" class="rounded-lg p-2  bg-red-500 hover:bg-red-600">-</button>
+            <input type="number" v-model="count" class="mx-2 w-20 text-black text-center overflow-hidden rounded-lg shadow bg-white border border-gray-300 ">
+            <button v-on:click="increment" class="rounded-lg p-2  bg-green-500 hover:bg-green-600">+</button>
           </div>
           <button @click="addOutbound" class="px-4 py-2 font-bold text-white rounded-lg bg hover:bg-[#10122e] bg-angelBaby-300"
                   style="align-items: center;">
@@ -128,11 +126,10 @@
           <h3 class="float-left text-xl text-gray-50">
             Quantity
           </h3>
-          <div class="text-gray-50">
-            <button v-on:click="decrement" class="border-2 rounded-lg">decrement</button>
-            <!-- <span class="mx-2">{{ count }}</span> -->
-            <input type="number" v-model="count" class="mx-2  text-black text-center overflow-hidden rounded-lg shadow bg-white border border-gray-300 ">
-            <button v-on:click="increment" class="border-2 rounded-lg">increment</button>
+          <div class="text-white">
+            <button v-on:click="decrement" class="rounded-lg p-2  bg-red-500 hover:bg-red-600">-</button>
+            <input type="number" v-model="count" class="mx-2 w-20 text-black text-center overflow-hidden rounded-lg shadow bg-white border border-gray-300 ">
+            <button v-on:click="increment" class="rounded-lg p-2  bg-green-500 hover:bg-green-600">+</button>
           </div>
           <button class="px-4 py-2 font-bold text-white rounded-lg bg hover:bg-[#10122e] bg-angelBaby-300"
                   style="align-items: center;">
